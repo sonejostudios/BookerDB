@@ -1,22 +1,25 @@
 # BookerDB
 Open Source Show Management System
 
+__Description:__
+BookerDB is a tool to help musicians, artists and bookers with the organization of shows and everything around.
+BookerDB is based on a csv database, classified by dates. It is possible to add/delete entries and do a lot more of manipulations.
+It has a monitor to show all kind of filters around the database. It can also export database entries into pdf, as info sheet with all important information, to take them as reminder on tour.
+
+
+
+![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
+
+
+
 
 __Features:__
 * Repeat the last loop of the stream according to the beats.
-* Beat detection from audio sidechain click track 
-* Beat detection from Midi-Clock
-* BPM Slider to set the tempo manually
-* Very simple Tap Tempo if needed (no average)
-* Loop one or two bars
-* Midi Controllable In/Out
-* Loop divider Slider Control (to switch loop lenght during the loop)
-* Loop x3 Mode for Triplets (with Midi LED Feedback)
-* The REPEAT! checkbox is usable as Momentary or Toggle
+
+
+
+
 
 Demo: https://youtu.be/C38gep4vkm8?t=6m17s
 
---
-![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
 
--- 
