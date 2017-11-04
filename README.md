@@ -1,5 +1,5 @@
 # BookerDB
-Open Source Show Management Software
+Open Source Show Management System
 
 
 __Features:__

@@ -1,5 +1,5 @@
 
-# bookerDB - Open Source Show Management Software
+# bookerDB - Open Source Show Management System
 
 
 from reportlab.pdfgen import canvas
@@ -1398,9 +1398,9 @@ street_entry = Entry(street_frame, width=22, background=white)
 street_entry.grid(row=0, column=0, padx=5)
 street_frame.pack(fill=X)
 
-# Nr.
+# Nr./No.
 nr_frame = Frame(entry_fields)
-nr_label = Label(nr_frame, text="Nr.", justify=LEFT)
+nr_label = Label(nr_frame, text="No", justify=LEFT)
 nr_label.grid(row=0, column=1, padx=0)
 nr_entry = Entry(nr_frame, width=22, background=white)
 nr_entry.grid(row=0, column=0, padx=5)
