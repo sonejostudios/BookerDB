@@ -17,6 +17,6 @@ __Features:__
 Demo: https://youtu.be/C38gep4vkm8?t=6m17s
 
 --
-![screenshot](https://raw.githubusercontent.com/sonejostudios/SuperBeatRepeater/master/SuperBeatRepeater.png "SuperBeatRepeater (JackQT)")
+![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
 
 -- 
