@@ -17,7 +17,7 @@ __Features:__
 * Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT, City, Country, Venue, Artist, Contacts, etc...
 * Statistics
 * Notes
-* Export Show(s) to PDF files
+* Export Show(s) to PDF file(s)
 * Export Monitor to text file (i.e for printing)
 * View show location on OSM or Gmaps (via Web Browser)
 * Import/Export database to Working Folder. 
