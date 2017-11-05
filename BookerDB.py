@@ -1,6 +1,6 @@
 
 # BookerDB - Open Source Show Management System
-# Version 0.1
+# Version 0.2
 
 
 from reportlab.pdfgen import canvas
@@ -54,6 +54,16 @@ preset_list  = ("COMING", "COMING + Artist", "PLAYED", "WAITING FOR MONEY", "CAN
 
 
 state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY")
+
+
+
+
+# about
+def about_app():
+    messagebox.showinfo("About", "BookerDB v0.2\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL v3.0")
+
+def website():
+    webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
 
 
 ### ------ CONFIG ------- ####
@@ -172,12 +182,7 @@ def import_from_workdir():
 
 
 
-# about
-def about_app():
-    messagebox.showinfo("About", "BookerDB\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL v3.0")
 
-def website():
-    webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
 
 
 
