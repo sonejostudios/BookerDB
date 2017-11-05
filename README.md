@@ -50,7 +50,7 @@ __Requirements:__
 __Notes:__
 
 * BookerDB was my playground for learning Python, so except a very very bad code. But it works and I'm using it every day! So for me it's fine, I leared a lot and it works, but it definitely needs a complete rewrite. If you have suggestions or you want to help with the rewrite, please contact me. Otherwise, have fun with it and organize yourself a lot of amazing shows!
-* BookerDB is for now a Linux-only Software. It was tested only on LinuxMint MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows Version are available.
+* BookerDB is for now a Linux-only Software. It was tested only on LinuxMint MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows versions are available.
 
 
 __Tips and Tricks:__
