@@ -433,7 +433,7 @@ def read_tour():
 
             #insert in listbox
             if date == "9999-99-99":
-                tour = " - " + city +  " (" +country + ")" + " - " + venue + " - " + artist   #" (" +country + ")" +
+                tour = " - " + city +  " (" +country + ")" + " - " + venue   #" (" +country + ")" +
             else:
                 tour = date + " - " + city + " - " + venue  + " - " + artist
             gig_listbox.insert(END, tour)
