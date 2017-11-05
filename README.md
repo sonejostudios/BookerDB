@@ -25,7 +25,7 @@ __Features:__
 * Use your own logo
 * Backup system
 * Open Folders from BookerDB directly (MATE, Cinnemon, GNOME, KDE only)
-* Notify action via OS
+* Notify actions via OS
 * and many many more...
   
 
