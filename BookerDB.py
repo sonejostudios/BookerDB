@@ -1,5 +1,6 @@
 
-# bookerDB - Open Source Show Management System
+# BookerDB - Open Source Show Management System
+# Version 0.1
 
 
 from reportlab.pdfgen import canvas
@@ -177,6 +178,7 @@ def about_app():
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
+
 
 
 # check state and do warnings or focus
@@ -934,6 +936,7 @@ def read_csv_line():
 
 
 
+
 # when clear button is clicked
 def on_clear_text():
     clear_text()
@@ -987,12 +990,9 @@ def clear_text():
 
 
 def on_delete_entry_click():
-
     result = messagebox.askquestion("Delete Show", "Delete this Show?", icon='warning')
-
     if result == 'yes':
         print("show deleted")
-
         spinval = int(spin.get())
         listbox_size = gig_listbox.size()
 
@@ -1005,8 +1005,6 @@ def on_delete_entry_click():
 
     else:
         print("not deleted")
-
-
 
 
 
@@ -1023,10 +1021,6 @@ def delete_entry(x):
     print(date_entry.get(), city_entry.get(),venue_entry.get(),"removed")
 
     os.system(command)
-
-    # backup DB
-    #auto_backup()
-
     read_csv_line()
 
 
@@ -1047,9 +1041,7 @@ def on_replace_click():
 
 def on_add_click():
     notify(str(city_entry.get()) + " - " + str(venue_entry.get())+  " - " + str(artist_entry.get()) + " added !")
-
     add_to_db(0)
-
     read_csv_line()
 
 
@@ -1111,7 +1103,7 @@ def add_to_db(x):
 
 # import data from csv file and export to pdf
 def on_export_all_button_click():
-    result = messagebox.askquestion("Export", "Export All Shows to PDF ?")
+    result = messagebox.askquestion("Export", "Export All Shows to PDF ?\n\nThis will overwrite all PDFs in the working folder and can take a long time, depending of the amount of shows in the database.")
     if result == 'yes':
         import_all_data()
 
@@ -1126,7 +1118,7 @@ def import_all_data():
 
 # import selected database row
 def import_one_data():
-    result = messagebox.askquestion("Export", "Export This Shows to PDF ?")
+    result = messagebox.askquestion("Export", "Export This Show to PDF ?")
     if result == 'yes':
         gig_data = csv.reader(open(data_file, "r"))
         gig_list = [d for d in gig_data]
@@ -1349,7 +1341,7 @@ delete_button.pack(padx=5, pady=5)
 
 # entry fields
 entry_fields = Frame(root)
-entry_fields.grid(row=0, column=2, rowspan=22, sticky=N)
+entry_fields.grid(row=0, column=2, rowspan=22, sticky=N, pady=5)
 
 
 # Artist
@@ -1630,7 +1622,7 @@ gig_listbox.bind("<ButtonRelease-1>", select_via_listbox)
 scrollbar.config(command=gig_listbox.yview)
 scrollbar.pack(side=RIGHT, fill=Y)
 gig_listbox.pack(side=LEFT, fill=BOTH, expand=1)
-gig_listbox_frame.grid(row=0, column=0, rowspan=1, sticky=N, padx=5)
+gig_listbox_frame.grid(row=0, column=0, rowspan=1, sticky=N, padx=5, pady=5)
 
 #monitor presets
 monitor_presets = ttk.Combobox(root, width=18)

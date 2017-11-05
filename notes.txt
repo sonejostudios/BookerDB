@@ -1,5 +1,5 @@
 - Write your notes here!
-(will be saved automatically)
+(will be saved automatically on monitor change)
 
 
 
