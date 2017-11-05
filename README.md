@@ -56,6 +56,7 @@ __Tips and Tricks:__
 * Export the desired monitor view and open it with your favorit Text Editor or with an Office Suite (i.e LibreOffice) for printing.
 * BookerDB makes an automatic database backup on starting (./bak/data.startbak.csv)
 * All manual backups will be stored in ./bak/ with the actual date. If you want to do more backups in one day, just export the Database Monitor as Database Monitor.txt and rename it to data.csv
+* BookerDB is only a Gui for the database. That means, not saved changes (changes, clean, etc) will only be saved by "Save Edit" od "Add". If you have deleted somthing by mistake, just don't save, go to an other show and come back, everything will be there as expected.
 * Thanks to the CSV standart, it is possible to edit the database with an Office Suite (i.e. LibreOffice Calc). This make database manipulation even easier! (but make a Backup first...)
 * Change the BookerDB Logo with your own logo (in ./logo): "logo.png" will be used PDF export, "logo_gui.png" will be used in the GUI (this as to be 100x100 pixels).
 * Change your currency on "Fee" only, the others will be updated automatically. Be careful, all currecy entries have to be with currency code : N.N CCC (i.e. 100.50 EUR) or N CCC (i.e 100 EUR).
