@@ -33,9 +33,9 @@ __Installation:__
 
 1. copy the whole BookerDB folder on your system
 2. from this folder start BookerDB with: 
-´´´
+```
 python3 BookerDB.py
-´´´
+```
 
 __Requirements:__
 
