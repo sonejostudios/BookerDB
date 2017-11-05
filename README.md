@@ -59,7 +59,7 @@ __Notes:__
 
 __Tips and Tricks:__
 
-* Point your working directory on a Cloud Service (Dropbox, Owncloud, Nextcloud etc). So the PDFs and all the exports will be shared with the other band/artist members. Use Import/Export Database to import it from or to export it to the remote working folder. Thanks to the remote database handling, different people can work on the same database. When imported, the remote database will be locked, so other people don't have access. Exporting it back will unlock it.
+* Point your working directory on a Cloud Service (Dropbox, Owncloud, Nextcloud etc). So the PDFs and all the exports will be shared with the other band/artist members. Use Import/Export Database to import it from or to export it to the remote working folder. Thanks to the remote database handling, different people can work on the same database. When imported, the remote database will be locked, so other people will not have access to it. Exporting it back will unlock it.
 * Export the desired monitor view and open it with your favorit Text Editor or with an Office Suite (i.e LibreOffice) for printing.
 * BookerDB makes an automatic database backup on starting (./bak/data.startbak.csv)
 * All manual backups will be stored in ./bak/ with the actual date. If you want to do more backups in one day, just export the Database Monitor as Database Monitor.txt and rename it to data.csv
