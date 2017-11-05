@@ -13,7 +13,7 @@ It has a monitor to show all kind of filters around the database, like coming da
 
 __Features:__
 
-* add/save/delete shows
+* Add/Save/Delete Shows
 * Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT, City, Country, Venue, Artist, Contacts, etc...
 * Statistics
 * Notes
