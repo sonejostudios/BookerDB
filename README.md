@@ -19,7 +19,7 @@ __Features:__
 * Notes
 * Export Show(s) to PDF files
 * Export Monitor to text file (i.e for printing)
-* View show location on OSM or Gmaps (via webbrowser)
+* View show location on OSM or Gmaps (via Web Browser)
 * Import/Export database to Working Folder. 
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
