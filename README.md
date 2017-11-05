@@ -46,7 +46,7 @@ __Requirements:__
 * Python3
 * Tkinter
 * GNU/Linux (with cp, sed and sort)
-* Webbrowser (i.e Firefox)
+* Web Browser (i.e Firefox)
 * File Manager (caja, nemo, nautilus, dolphin)
 * PDF Reader
 
