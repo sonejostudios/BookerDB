@@ -32,6 +32,10 @@ __Features:__
 __Installation:__
 
 1. copy the whole BookerDB folder on your system
+´´´
+git clone https://github.com/sonejostudios/BookerDB.git
+´´´
+
 2. from this folder start BookerDB with: 
 ```
 python3 BookerDB.py
