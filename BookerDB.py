@@ -135,17 +135,17 @@ def set_env():
 def open_workdir():
     workdir = exportpath_entry.get()
     filebrowser = set_env()
-    os.system(filebrowser + " " + workdir)
+    call(filebrowser + " " + workdir, shell=TRUE) # better than os.system
 
 def open_bakdir():
     bakdir = os.path.dirname(os.path.realpath(__file__))
     filebrowser = set_env()
-    os.system(filebrowser + " " + bakdir + "/bak")
+    call(filebrowser + " " + bakdir + "/bak", shell=TRUE)
 
 def open_rootdir():
     rootdir = os.path.dirname(os.path.realpath(__file__))
     filebrowser = set_env()
-    os.system(filebrowser + " " + rootdir)
+    call(filebrowser + " " + rootdir, shell=TRUE)
 
 
 
@@ -227,14 +227,16 @@ def show_map(x):
     street2 = street.replace(" ","+")
     nr = nr_entry.get()
     nr2 = nr.replace(" ","+")
+    country = country_entry.get()
+    country2 = country.replace(" ", "+")
 
     # gmaps
     if x == "gmaps":
-        webbrowser.open_new_tab("https://www.google.de/maps/place/" + city2 + "+" + street2 + "+" + nr2)
+        webbrowser.open_new_tab("https://www.google.de/maps/place/" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
 
     # open street map
     else:
-        webbrowser.open_new_tab("https://www.openstreetmap.org/search?query=" + city2 + "+" + street2 + "+" + nr2)
+        webbrowser.open_new_tab("https://www.openstreetmap.org/search?query=" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
 
 
 
@@ -1024,7 +1026,7 @@ def delete_entry(x):
     read_csv_line()
 
 
-
+# save edit
 def on_replace_click():
     notify(str(city_entry.get()) + " - " + str(venue_entry.get()) +  " - " +str(artist_entry.get()) + " saved !")
 
@@ -1039,6 +1041,7 @@ def on_replace_click():
     read_csv_line()
 
 
+# add
 def on_add_click():
     notify(str(city_entry.get()) + " - " + str(venue_entry.get())+  " - " + str(artist_entry.get()) + " added !")
     add_to_db(0)
