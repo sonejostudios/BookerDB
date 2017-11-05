@@ -1,4 +1,3 @@
-
 # BookerDB - Open Source Show Management System
 # Version 0.2
 
@@ -60,7 +59,7 @@ state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONL
 
 # about
 def about_app():
-    messagebox.showinfo("About", "BookerDB v0.2\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL v3.0")
+    messagebox.showinfo("About", "BookerDB 0.2\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL 3.0")
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
