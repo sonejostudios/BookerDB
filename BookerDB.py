@@ -1,5 +1,5 @@
 # BookerDB - Open Source Show Management System
-# Version 0.2
+# Version 0.2.1
 
 
 from reportlab.pdfgen import canvas
@@ -59,10 +59,19 @@ state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONL
 
 # about
 def about_app():
-    messagebox.showinfo("About", "BookerDB 0.2\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL 3.0")
+    messagebox.showinfo("About", "BookerDB 0.2.1\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL 3.0")
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
+
+def websearch():
+    venue = venue_entry.get()
+    city = city_entry.get()
+    country = country_entry.get()
+
+    webbrowser.open_new_tab("https://duckduckgo.com/?q=" + venue + "+" + city + "+" + country)
+
+
 
 
 ### ------ CONFIG ------- ####
@@ -1341,6 +1350,10 @@ map.pack(padx=5, pady=5, )
 #pdf.pack(padx=5, pady=5, )
 
 # Button
+map= ttk.Button(button_frame, text="Web Search", width=19, state="normal", command= websearch)
+map.pack(padx=5, pady=5, )
+
+# Button
 delete_button = ttk.Button(button_frame, text="Delete", width=19, command= on_delete_entry_click)
 delete_button.pack(padx=5, pady=5)
 
@@ -1675,6 +1688,7 @@ menubar.add_cascade(label="Folders", menu=foldermenu)
 
 # Help
 helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label="Web Search", command=websearch)
 helpmenu.add_command(label="GitHub", command=website)
 helpmenu.add_command(label="About", command=about_app)
 menubar.add_cascade(label="Help", menu=helpmenu)
