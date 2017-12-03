@@ -116,7 +116,7 @@ __Buttons:__
 * Add: Create a new entry with the current informations. Also useful for copying entries.
 * Clear all fields of the current entry. This will not be saved until the entry is saved via "Save Edit".
 
-Important Feature: Keep in mind BookerDB is just a "mirror" to the database. That means, nothing will be saved util it is explecitely saved via "Save Edit".
+Important Feature: Keep in mind BookerDB is just a "mirror" to the database. That means, nothing will be saved until it is explecitely saved via "Save Edit".
 
 
 __Actual States:__
