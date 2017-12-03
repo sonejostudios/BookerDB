@@ -125,7 +125,7 @@ __Actual States:__
 * PLAYED: Played and paid shows (completely done).
 * WAITING FOR MONEY: Played but not paid yet, waiting for payment.
 * CANCELLED: Cancelled shows.
-* CONTACT ONLY: A Venue, Contact, Info, but not a organized show. This will insert 9999-99-99 as date, so the will be sorted at the end of the Database (not shown in show list).
+* CONTACT ONLY: A venue, contact, info, but not a organized show. This will insert 9999-99-99 as date, so the will be sorted at the end of the Database (not shown in show list).
 
 
 
