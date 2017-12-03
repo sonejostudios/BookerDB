@@ -15,7 +15,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.2"
+version = "0.2.3"
 
 data_file = "data.csv"
 
@@ -548,17 +548,17 @@ def read_tour():
 
 
             elif monitor_presets_sel == "Cities":
-                tour = city + " (" + country + ")" + " - " + venue + " (" + artist + " - " + date + ")\n"
+                tour = city + " (" + country + ")" + " - " + venue + " (" + artist + " - " + date + ")" + " - " + fee + "\n"
 
             elif monitor_presets_sel == "Countries":
-                tour = country + " - " + city   + " - " + venue + " (" + artist + " - " + date + ")\n"
+                tour = country + " - " + city   + " - " + venue + " (" + artist + " - " + date + ")" + " - " + fee + "\n"
 
 
             elif monitor_presets_sel == "Artists":
-                tour = artist   + " - " + city + " (" + country + ")" + " - " + venue + " (" + date + ")\n"
+                tour = artist   + " - " + city + " (" + country + ")" + " - " + venue + " (" + date + ")" + " - " + fee + "\n"
 
             elif monitor_presets_sel == "Venues":
-                tour = venue   + " (" + city + " - " + country + ") - " + artist + " (" +  date + ")\n"
+                tour = venue   + " (" + city + " - " + country + ") - " + date + " (" +  artist + ")" + " - " + fee + "\n"
 
 
             elif monitor_presets_sel == "Notes":
