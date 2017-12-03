@@ -1,6 +1,4 @@
 # BookerDB - Open Source Show Management System
-# Version 0.2.1
-
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
@@ -17,6 +15,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
+version = "0.2.2"
 
 data_file = "data.csv"
 
@@ -38,8 +37,6 @@ today = date_time[:10]
 
 pdf_ypos = +20
 
-map_select = 0
-
 
 white = "#ffffff"
 black = "#000000"
@@ -59,17 +56,11 @@ state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONL
 
 # about
 def about_app():
-    messagebox.showinfo("About", "BookerDB 0.2.1\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL 3.0")
+    messagebox.showinfo("About", "BookerDB " + version + "\nby Vincent Rateau\nwww.sonejo.net\n\nLicensed under GPL 3.0")
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
 
-def websearch():
-    venue = venue_entry.get()
-    city = city_entry.get()
-    country = country_entry.get()
-
-    webbrowser.open_new_tab("https://duckduckgo.com/?q=" + venue + "+" + city + "+" + country)
 
 
 
@@ -207,31 +198,12 @@ def state_check(event):
 
 
 # maps
-def show_on_map():
-    if map_select == 0:
-        show_map("osm")
-    else:
-        show_map("gmaps")
-
 def show_osm():
-    global map_select
-    map_select = 0
-    mapsmenu.entryconfig(0, label="Show on OSM *")
-    mapsmenu.entryconfig(1, label="Show on GMaps")
-    #map.config(text="Show on OSM")
-    #show_map("osm")
-    notify("Show Venues on OSM.")
+    show_map("osm")
 
 
 def show_gmaps():
-    global map_select
-    map_select = 1
-    mapsmenu.entryconfig(1, label="Show on GMaps *")
-    mapsmenu.entryconfig(0, label="Show on OSM")
-    #map.config(text="Show on GMaps")
-    #show_map("gmaps")
-    notify("Show Venues on GMaps.")
-
+    show_map("gmaps")
 
 def show_map(x):
     city = city_entry.get()
@@ -243,15 +215,64 @@ def show_map(x):
     country = country_entry.get()
     country2 = country.replace(" ", "+")
 
+    # osm
+    if x == "osm":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!osm+" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
+
     # gmaps
-    if x == "gmaps":
-        webbrowser.open_new_tab("https://www.google.de/maps/place/" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
-
-    # open street map
     else:
-        webbrowser.open_new_tab("https://www.openstreetmap.org/search?query=" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!m+" + country2 + "+" + city2 + "+" + street2 + "+" + nr2)
 
 
+# web search
+def web_ddgo():
+    websearch("ddgo")
+
+def web_g():
+    websearch("g")
+
+def web_images():
+    websearch("images")
+
+def web_yt():
+    websearch("yt")
+
+def web_fb():
+    websearch("fb")
+
+def web_sc():
+    websearch("sc")
+
+def mailto():
+    websearch("mailto")
+
+
+def websearch(x):
+    venue = venue_entry.get()
+    city = city_entry.get()
+    country = country_entry.get()
+    email = email_entry.get()
+
+    if x == "ddgo":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=" + venue + "+" + city + "+" + country)
+
+    elif x == "g":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!g+" + venue + "+" + city + "+" + country)
+
+    elif x == "images":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!i+" + venue + "+" + city + "+" + country)
+
+    elif x == "yt":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!yt+" + venue + "+" + city + "+" + country)
+
+    elif x == "fb":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!fb+" + venue + "+" + city + "+" + country)
+
+    elif x == "sc":
+        webbrowser.open_new_tab("https://duckduckgo.com/?q=!sc+" + venue + "+" + city + "+" + country)
+
+    elif x == "mailto":
+        webbrowser.open_new_tab("mailto:" + email)
 
 
 
@@ -1341,17 +1362,6 @@ spin.pack(padx=5, pady=5)
 replace= ttk.Button(button_frame, text="Save Edit", width=19, state="normal", command= on_replace_click)
 replace.pack(padx=5, pady=5, )
 
-# Button
-map= ttk.Button(button_frame, text="Show on Map", width=19, state="normal", command= show_on_map)
-map.pack(padx=5, pady=5, )
-
-# Button
-#pdf= ttk.Button(button_frame, text="Export This Show to PDF", width=19, state="normal", command= import_one_data)
-#pdf.pack(padx=5, pady=5, )
-
-# Button
-map= ttk.Button(button_frame, text="Web Search", width=19, state="normal", command= websearch)
-map.pack(padx=5, pady=5, )
 
 # Button
 delete_button = ttk.Button(button_frame, text="Delete", width=19, command= on_delete_entry_click)
@@ -1673,12 +1683,6 @@ exportmenu.add_separator()
 exportmenu.add_command(label="Export Monitor to TXT", command=on_export_monitor)
 menubar.add_cascade(label="Export", menu=exportmenu)
 
-# Maps
-mapsmenu = Menu(menubar, tearoff=0)
-mapsmenu.add_command(label="Show on OSM *", command=show_osm)
-mapsmenu.add_command(label="Show on GMaps", command=show_gmaps)
-menubar.add_cascade(label="Maps", menu=mapsmenu)
-
 # Folders
 foldermenu = Menu(menubar, tearoff=0)
 foldermenu.add_command(label="Open Workdir", command=open_workdir)
@@ -1686,9 +1690,26 @@ foldermenu.add_command(label="Open Backupdir", command=open_bakdir)
 foldermenu.add_command(label="Open Rootdir", command=open_rootdir)
 menubar.add_cascade(label="Folders", menu=foldermenu)
 
+
+# Web direct links
+weblinks = Menu(menubar, tearoff=0)
+weblinks.add_command(label="Show on OSM", command=show_osm)
+weblinks.add_command(label="Show on GMaps", command=show_gmaps)
+weblinks.add_separator()
+weblinks.add_command(label="Web Search DDGo", command=web_ddgo)
+weblinks.add_command(label="Web Search G", command=web_g)
+weblinks.add_separator()
+weblinks.add_command(label="Web Search Images", command=web_images)
+weblinks.add_command(label="Web Search Yt", command=web_yt)
+weblinks.add_command(label="Web Search Fb", command=web_fb)
+weblinks.add_command(label="Web Search Sc", command=web_sc)
+weblinks.add_separator()
+weblinks.add_command(label="E-Mail to Contact", command=mailto)
+menubar.add_cascade(label="Web", menu=weblinks)
+
+
 # Help
 helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label="Web Search", command=websearch)
 helpmenu.add_command(label="GitHub", command=website)
 helpmenu.add_command(label="About", command=about_app)
 menubar.add_cascade(label="Help", menu=helpmenu)

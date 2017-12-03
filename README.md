@@ -14,12 +14,13 @@ It has a monitor to show all kind of filters around the database, like coming da
 __Features:__
 
 * Add/Save/Delete Shows
-* Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT, City, Country, Venue, Artist, Contacts, etc...
+* Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT ONLY, City, Country, Venue, Artist, Contacts, etc...
 * Statistics
 * Notes
 * Export Show(s) to PDF file(s)
 * Export Monitor to text file (i.e for printing)
 * View show location on OSM or Gmaps (via Web Browser)
+* Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
 * Import/Export database to Working Folder. 
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
@@ -70,6 +71,61 @@ __Tips and Tricks:__
 * Use TAB while adding shows, it is specially designed to go through all entries in the right order.
 * If you want to use BookerDB with different artists and different working folders, just install it several time on your computer. So you can have different remote working folder with each artist and you can also change the logo for each artist.
 
+
+
+__Menu:__
+
+Database:
+* DB Backup: This makes a Backup of the Database with date and time. It will be stored in the Backup forlder (bak in the app's main folder). You can access this folder directly via the menu Folder/Backupdir.
+* Import from Workdir: This imports the Database from the working directory (if exported there before) to the app's root directory. This in only interesting if the working directory is pointed to a cloud folder and used between different people. Importing the Database from Workdir will lock the database in the working directory, so nobody else can import it until it is exported back.
+* Export to Workdir: Export the Database from the App's root directory to the working directoty. This will also unlock the Database in the working directory.
+
+
+Export:
+* Export This Show to PDF: This will export the selected to to PDF into the working directory.
+* Export All Shows to PDF: This will export all Shows of the Database to PDFs into the working directory. Usefull to have all PDFs up-to-date with the database entries. Be carefull, this will overwrite all PDFs and depending on the amount of shows, this can take a really long time!
+* Export Monitor to TXT: This will export the current monitor view to a .txt file into the working folder. This will overwrite existing monitor exports. Really useful for sharing and printing.
+
+Folders:
+* Open Workdir: Opens the working directory.
+* Open Backupdir: Opens the backup directory (bak).
+* Open Rootdir: Opens the root directory of BookerDB.
+
+Web:
+* Show on OSM: Try to find the Venue's Address on Open Street Map.
+* Show on GMaps: Try to find the Venue's Adress on Google Maps.
+* Web Search DDGo: Search for the Venue in DuckDuckGo.
+* Web Search G: Search for the Venue on Google Search.
+* Web Search Images: Search for Images on Google Images.
+* Web Search Yt: Search for the Venue on YouTube.
+* Web Search Fb: Search for the Venue on Facebook.
+* Web Search Sc: Search for the Venue on Soundcloud.
+* E-Mail to Contact: Start default mail application with the contact's e-mail.
+
+(All Web Links are handled by DuckDuckGo with the Bang Syntax).
+
+Help:
+* Github: Direct link to BookerDB's Github.
+* About: About BookerDB and version number.
+
+
+__Buttons:__
+
+* Save Edit: Save the current entry. If you are editing the very first entry, this will jump to the second one after saving due to database handling.
+* Delete: Delete the current entry.
+* Add: Create a new entry with the current informations. Also useful for copying entries.
+* Clear all fields of the current entry. This will not be saved until the entry is saved via "Save Edit".
+
+Important Feature: Keep in mind BookerDB is just a "mirror" to the database. That means, nothing will be saved util it is explecitely saved via "Save Edit".
+
+
+__Actual States:__
+
+* COMING: Coming shows.
+* PLAYED: Played and paid shows (completely done).
+* WAITING FOR MONEY: Played but not paid yet, waiting for payment.
+* CANCELLED: Cancelled shows.
+* CONTACT ONLY: A Venue, Contact, Info, but not a organized show. This will insert 9999-99-99 as date, so the will be sorted at the end of the Database (not shown in show list).
 
 
 
