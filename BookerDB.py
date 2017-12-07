@@ -15,7 +15,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.3"
+version = "0.2.5"
 
 data_file = "data.csv"
 
@@ -38,11 +38,12 @@ today = date_time[:10]
 pdf_ypos = +20
 
 
+
 white = "#ffffff"
 black = "#000000"
 
 
-preset_list  = ("COMING", "COMING + Artist", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY","Actual States",
+preset_list  = ("COMING", "COMING + Artist", "PLAYED", "PLAYED + Artist", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY","Actual States",
                 "Statistics",  "Notes", "Cities", "Countries", "Artists", "Venues","Contacts",
                 "E-Mails", "COMING E-Mails", "PLAYED E-Mails","WAITING E-Mails","CANCELLED E-Mails", "CONTACT ONLY E-Mails",
                 "Address", "Address Print", "Print", "Database Monitor",
@@ -60,6 +61,71 @@ def about_app():
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
+
+
+
+# search show in listbox
+def search_auto(event):
+    search_show()
+
+def search_show():
+    search_item = search_entry.get()
+    total_line_count = str(sum(1 for line in open(data_file)))
+    orig_color = gig_listbox.cget("background")
+
+    first_search = 0
+
+    if search_item != "":
+        for i in range(int(total_line_count)) :
+
+            gig_listbox_content = gig_listbox.get(i)
+
+            if search_item in gig_listbox_content:
+                gig_listbox.itemconfig(i, bg="grey", fg="white")
+
+                # at first iteration only, jump to see first highlighted show
+                if first_search == 0:
+                    gig_listbox.see(i)
+                    first_search = 1
+
+            else:
+                gig_listbox.itemconfig(i, bg=orig_color, fg="black")
+    else:
+        for i in range(int(total_line_count)):
+            gig_listbox.itemconfig(i, bg=orig_color, fg="black")
+
+
+
+
+#filter monitor
+def filter_auto(event):
+    read_tour()
+    filter_monitor()
+
+    #trigger search
+    filter_item = filter_entry.get()
+    search_entry.delete(0,END)
+    search_entry.insert(0, filter_item)
+    search_show()
+    #search_entry.delete(0, END)
+
+def filter_monitor():
+
+    filter_item = filter_entry.get()
+
+    monitor_header = monitor.get(0.0,2.0)
+    monitor_content = monitor.get(2.0,END)
+
+
+    if filter_item != "":
+        monitor.delete(0.0, END)
+
+        for line in monitor_content.split("\n"):
+            if filter_item in line:
+                monitor.insert(END, line + "\n")
+
+        monitor.insert(0.0, monitor_header + "\n")
+
 
 
 
@@ -123,6 +189,9 @@ def on_quit():
         root.quit()
 
 
+
+
+
 # check environement and set file browser
 def set_env():
     # save export path into config.csv
@@ -184,7 +253,6 @@ def import_from_workdir():
 
 
 
-
 # check state and do warnings or focus
 def state_check(event):
     print("state selected")
@@ -210,7 +278,7 @@ def show_map(x):
     city2 = city.replace(" ", "+")
     street = street_entry.get()
     street2 = street.replace(" ","+")
-    nr = nr_entry.get()
+    nr = no_entry.get()
     nr2 = nr.replace(" ","+")
     country = country_entry.get()
     country2 = country.replace(" ", "+")
@@ -276,7 +344,7 @@ def websearch(x):
 
 
 
-
+# statistics
 def stats():
 
     monitor.delete(0.0, END)
@@ -329,7 +397,6 @@ def stats():
                     played_fee += fee_float
                     played_count += 1
 
-
                 if state == 2:
                     waiting_fee += fee_float
                     waiting_travelmoney += travelmoney_float
@@ -345,55 +412,29 @@ def stats():
                     contact_count += 1
 
 
+
         total_line_count = str(sum(1 for line in open(data_file)))
 
         fee_sum2 = "%.2f" % fee_sum
         currency = str(fee[-4:])
 
-        fee_average = float(fee_sum2) / int(total_line_count)
-        fee_average2 = "%.2f" % fee_average
-
-        travelmoney_average = float(travelmoney_sum2) / int(total_line_count)
-        travelmoney_average2 = "%.2f" % travelmoney_average
 
         waiting_fee_travel_sum = float(waiting_fee) + float(waiting_travelmoney)
         waiting_fee_travel_sum2 = "%.2f" % waiting_fee_travel_sum
 
 
-        # check if gig count > 0, otherwise set 0 - for average
-        if coming_count > 0:
-            coming_fee_average = float(coming_fee) / int(coming_count)
-            coming_average2 = "%.2f" % coming_fee_average
-        else:
-            coming_average2 = "0"
-
-        if played_count > 0:
-            played_fee_average = float(played_fee) / int(played_count)
-            played_average2 = "%.2f" % played_fee_average
-        else:
-            played_average2 = "0"
-
-
         fee_sum_played_waiting = played_fee + waiting_fee
         count_sum_played_waiting = played_count + waiting_count
 
-        if count_sum_played_waiting > 0:
-            fee_sum_played_waiting_average = float(fee_sum_played_waiting) / int(count_sum_played_waiting)
-            fee_sum_played_waiting_average2 = "%.2f" % fee_sum_played_waiting_average
-        else:
-            fee_sum_played_waiting_average2 = "0"
 
         monistats = "COMING - Shows : " + str(coming_count) + "\n" + \
-                    "COMING - Fee : " + str(coming_fee) + currency + "\n" + \
-                    "COMING - Average : " + coming_average2 + currency + "\n\n" + \
+                    "COMING - Fee : " + str(coming_fee) + currency + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
                     "PLAYED - Shows : " + str(played_count) + "\n" + \
-                    "PLAYED - Fee : " + str(played_fee) + currency + "\n" + \
-                    "PLAYED - Average : " + played_average2 + currency + "\n\n" + \
+                    "PLAYED - Fee : " + str(played_fee) + currency + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
                     "PLAYED+WAITING - Shows : " + str(count_sum_played_waiting) + "\n" + \
-                    "PLAYED+WAITING - Fee: " + str(fee_sum_played_waiting) + currency + "\n" + \
-                    "PLAYED+WAITING - Average: " + str(fee_sum_played_waiting_average2) + currency + "\n\n" + \
+                    "PLAYED+WAITING - Fee: " + str(fee_sum_played_waiting) + currency + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
                     "WAITING FOR MONEY - Shows : " + str(waiting_count) + "\n" + \
                     "WAITING FOR MONEY - Fee : " + str(waiting_fee) + currency + "\n" + \
@@ -402,9 +443,9 @@ def stats():
                     "CANCELLED - Shows : " + str(cancelled_count) + "\n" + \
                     "CANCELLED - Fee : " + str(cancelled_fee) + currency + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
-                    "CONTACT ONLY - Shows : " + str(contact_count) + "\n\n" + \
+                    "CONTACT ONLY - Amount : " + str(contact_count) + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
-                    "Shows in Database : " + total_line_count + "\n\n" + \
+                    "Entries in Database : " + total_line_count + "\n\n" + \
                     "-----------------------------------" + "\n"
 
 
@@ -422,7 +463,6 @@ def read_tour():
     # delete listbox and monitor
     gig_listbox.delete(0, END)
     monitor.delete(0.0, END)
-
 
 
     with open(data_file, 'r') as datafile:
@@ -491,7 +531,7 @@ def read_tour():
                 tour = date + " \n" + city + " - " + venue + "\n" + "\n"
 
             elif monitor_presets_sel == "Contacts":
-                tour = venue +  " (" + city + " - " + date + " - " + artist + ")"  + "\n" + contact + " : " + phone + " - " +  email + "\n" + "\n"
+                tour = venue +  " (" + city + " - " + date + " - " + artist + ") : "  + contact + " : " + phone + " - " +  email + "\n" + "\n"
 
             elif monitor_presets_sel == "Print":
                 tour = city + " - " + venue  + " (" + artist + ") -> " + prints + "\n" + "\n"
@@ -523,6 +563,12 @@ def read_tour():
                     tour = ""
 
             elif monitor_presets_sel == "PLAYED":
+                if statebox == "PLAYED":
+                    tour = date + " - " + city   + " - " + venue + "\n"
+                else:
+                    tour = ""
+
+            elif monitor_presets_sel == "PLAYED + Artist":
                 if statebox == "PLAYED":
                     tour = date + " - " + city   + " - " + venue + " - " + artist + "\n"
                 else:
@@ -567,38 +613,55 @@ def read_tour():
 
 
             elif monitor_presets_sel == "E-Mails":
-                tour = contact + " <" + email + ">\n"
-
+                if email != "":
+                    tour = contact + " <" + email + ">\n"
+                else:
+                    tour = ""
 
             elif monitor_presets_sel == "COMING E-Mails":
                 if statebox == "COMING":
-                    tour = contact + " <" + email + ">\n"
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
                 else:
                     tour = ""
 
             elif monitor_presets_sel == "PLAYED E-Mails":
                 if statebox == "PLAYED":
-                    tour = contact + " <" + email + ">\n"
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
                 else:
                     tour = ""
 
 
             elif monitor_presets_sel == "WAITING E-Mails":
                 if statebox == "WAITING FOR MONEY":
-                    tour = contact + " <" + email + ">\n"
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
                 else:
                     tour = ""
 
 
             elif monitor_presets_sel == "CANCELLED E-Mails":
                 if statebox == "CANCELLED":
-                    tour = contact + " <" + email + ">\n"
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
                 else:
                     tour = ""
 
             elif monitor_presets_sel == "CONTACT ONLY E-Mails":
                 if statebox == "CONTACT ONLY":
-                    tour = contact + " <" + email + ">\n"
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
                 else:
                     tour = ""
 
@@ -608,6 +671,8 @@ def read_tour():
                 tour = date + " - " + city + " - " + venue + "\n"
 
             monitor.insert(END, tour)
+
+
 
 
     #calculate stats
@@ -626,6 +691,9 @@ def read_tour():
 
     if monitor_presets_sel == "PLAYED":
         monitor.insert(0.0, "PLAYED (" + today + ") :\n\n")
+
+    if monitor_presets_sel == "PLAYED + Artist":
+        monitor.insert(0.0, "PLAYED + Artist (" + today + ") :\n\n")
 
     if monitor_presets_sel == "CANCELLED":
         monitor.insert(0.0, "CANCELLED (" + today + ") :\n\n")
@@ -652,22 +720,22 @@ def read_tour():
     # reorder cities
     if monitor_presets_sel == "Cities":
         temp_dump_read()
-        monitor.insert(0.0, "Cities (All) (" + today + ") :\n")
+        monitor.insert(0.0, "Cities (" + today + ") :\n\n")
 
     # reorder countries
     if monitor_presets_sel == "Countries":
         temp_dump_read()
-        monitor.insert(0.0, "Countries (All) (" + today + ") :\n")
+        monitor.insert(0.0, "Countries (" + today + ") :\n\n")
 
     # reorder artists
     if monitor_presets_sel == "Artists":
         temp_dump_read()
-        monitor.insert(0.0, "Artists (All) (" + today + ") :\n")
+        monitor.insert(0.0, "Artists (" + today + ") :\n\n")
 
     # reorder venues
     if monitor_presets_sel == "Venues":
         temp_dump_read()
-        monitor.insert(0.0, "Venues (All) (" + today + ") :\n")
+        monitor.insert(0.0, "Venues (" + today + ") :\n\n")
 
 
 
@@ -701,6 +769,11 @@ def read_tour():
         monitor.insert(0.0, "CONTACT ONLY - E-Mails (" + today + ") :\n\n")
 
 
+    # start search
+    search_show()
+
+    # start filter
+    filter_monitor()
 
 
 # Specials for Notes
@@ -737,18 +810,46 @@ def temp_dump_read():
 
     # sort temp.csv alphabetically via bash
     os.system("sort temp.csv -o temp.csv")
-
-    tempfile = open("temp.csv", "r")
-    tempfile2 = tempfile.read()
+    # remove blank lines
+    os.system("sed -i '/^\s*$/d' temp.csv")
 
     monitor.delete(0.0, END)
-    monitor.insert(0.0, str(tempfile2))
 
-    tempfile.close()
+    # add each line of temp to monitor, add blank line if entries are different
+    with open("temp.csv", "r") as tempfile:
+        reader = csv.reader(tempfile)
+        rowstart2 = ""
+        for row in reader:
+            rowstart = row[0]
+
+            # add blank line if entries are not starting with the same 8 characters
+            if rowstart[:7] != rowstart2[:7]:
+                monitor.insert(END, "\n")
+
+            monitor.insert(END, row[0])
+            monitor.insert(END, "\n")
+
+            rowstart2 = row[0]
+
+
+
+# export monitor or open it externally
+def export_monitor_only():
+    on_export_monitor("export")
+
+
+def open_monitor_textedit_click(event):
+    open_monitor_textedit()
+
+
+def open_monitor_textedit():
+    print("open monitor in text editor")
+    on_export_monitor("open")
+
 
 
 # monitor export to txt file
-def on_export_monitor():
+def on_export_monitor(x):
 
     #get export text file with path
     exporttxt = exportpath_entry.get()  + monitor_presets.get() + ".txt"
@@ -760,7 +861,10 @@ def on_export_monitor():
     text_file.close()
     print(exporttxt)
 
-    notify(monitor_presets.get() + ".txt exported.")
+    if x == "open":
+        webbrowser.open(exporttxt) # opens with default text editor
+    else:
+        notify(monitor_presets.get() + ".txt exported.")
 
 
 
@@ -900,7 +1004,7 @@ def read_csv_line():
     artist_entry.insert(0, artist)
 
     street_entry.insert(0, street)
-    nr_entry.insert(0, nr)
+    no_entry.insert(0, nr)
     zip_entry.insert(0, zip)
     country_entry.insert(0, country)
 
@@ -993,7 +1097,7 @@ def clear_text():
     venue_entry.delete(0, 'end')
 
     street_entry.delete(0, 'end')
-    nr_entry.delete(0, 'end')
+    no_entry.delete(0, 'end')
     zip_entry.delete(0, 'end')
     country_entry.delete(0, 'end')
 
@@ -1021,7 +1125,26 @@ def clear_text():
     addressprint_entry.delete(0.0, 'end')
 
     # state entry
-    statebox_entry.current(4)
+    statebox_entry.current(0)
+
+
+
+# clear entry on right mouse click and set focus
+def entry_clear(event):
+    try:
+        event.widget.delete(0, END)
+        event.widget.focus_set()
+    except:
+        event.widget.delete(0.0, END)
+        event.widget.focus_set()
+
+def entry_clear_money(event):
+    currency = fee_entry.get()
+    currency2 = "0.0 " + currency[-3:]
+    event.widget.delete(0, END)
+    event.widget.insert(0, currency2)
+    event.widget.focus_set()
+
 
 
 
@@ -1077,7 +1200,6 @@ def on_replace_click():
 
 # add
 def on_add_click():
-    notify(str(city_entry.get()) + " - " + str(venue_entry.get())+  " - " + str(artist_entry.get()) + " added !")
     add_to_db(0)
     read_csv_line()
 
@@ -1104,7 +1226,7 @@ def add_to_db(x):
     # get all entries and write the to DB
     else:
         fields = [str(date_entry.get()), str(city_entry.get()), str(venue_entry.get()), str(artist_entry.get()),
-                  str(street_entry.get()), str(nr_entry.get()), str(zip_entry.get()), str(country_entry.get()),
+                  str(street_entry.get()), str(no_entry.get()), str(zip_entry.get()), str(country_entry.get()),
                   str(contact_entry.get()), str(phone_entry.get()), str(email_entry.get()),
                   str(info_entry.get(1.0,"1.0 lineend")), str(info_entry.get(2.0,"2.0 lineend")),
                   str(info_entry.get(3.0,"3.0 lineend")), str(info_entry.get(4.0,"4.0 lineend")),
@@ -1132,6 +1254,8 @@ def add_to_db(x):
         #sort data.csv alphabetically via bash
         os.system("sort data.csv -o data.csv")
         print("db alphabetically sorted")
+
+        notify(str(city_entry.get()) + " - " + str(venue_entry.get()) + " - " + str(artist_entry.get()) + " added !")
 
 
 
@@ -1379,6 +1503,7 @@ artist_frame = Frame(entry_fields)
 artist_label = Label(artist_frame, text="Artist(s)", justify=LEFT)
 artist_label.grid(row=20, column=1, padx=0)
 artist_entry = Entry(artist_frame, width=22, background=white)
+artist_entry.bind("<Button-3>", entry_clear)
 artist_entry.grid(row=20, column=0, padx=5)
 artist_frame.pack(fill=X)
 
@@ -1388,6 +1513,7 @@ date_label = Label(date_frame, text="Date\n(YYYY-MM-DD)", justify=LEFT)
 date_label.grid(row=0, column=1, padx=0)
 date_entry = Entry(date_frame, width=22, background=white)
 date_entry.focus_set() # set focus
+date_entry.bind("<Button-3>", entry_clear)
 date_entry.grid(row=0, column=0, padx=5)
 date_frame.pack(fill=X)
 
@@ -1396,6 +1522,7 @@ city_frame = Frame(entry_fields)
 city_label = Label(city_frame, text="City", justify=LEFT)
 city_label.grid(row=0, column=1, padx=0)
 city_entry = Entry(city_frame, width=22, background=white)
+city_entry.bind("<Button-3>", entry_clear)
 city_entry.grid(row=0, column=0, padx=5)
 city_frame.pack(fill=X)
 
@@ -1404,6 +1531,7 @@ venue_frame = Frame(entry_fields)
 venue_label = Label(venue_frame, text="Venue", justify=LEFT)
 venue_label.grid(row=0, column=1, padx=0)
 venue_entry = Entry(venue_frame, width=22, background=white)
+venue_entry.bind("<Button-3>", entry_clear)
 venue_entry.grid(row=0, column=0, padx=5)
 venue_frame.pack(fill=X)
 
@@ -1417,22 +1545,25 @@ street_frame = Frame(entry_fields)
 street_label = Label(street_frame, text="Street", justify=LEFT)
 street_label.grid(row=0, column=1, padx=0)
 street_entry = Entry(street_frame, width=22, background=white)
+street_entry.bind("<Button-3>", entry_clear)
 street_entry.grid(row=0, column=0, padx=5)
 street_frame.pack(fill=X)
 
-# Nr./No.
-nr_frame = Frame(entry_fields)
-nr_label = Label(nr_frame, text="No", justify=LEFT)
-nr_label.grid(row=0, column=1, padx=0)
-nr_entry = Entry(nr_frame, width=22, background=white)
-nr_entry.grid(row=0, column=0, padx=5)
-nr_frame.pack(fill=X)
+# No.
+no_frame = Frame(entry_fields)
+no_label = Label(no_frame, text="No", justify=LEFT)
+no_label.grid(row=0, column=1, padx=0)
+no_entry = Entry(no_frame, width=22, background=white)
+no_entry.bind("<Button-3>", entry_clear)
+no_entry.grid(row=0, column=0, padx=5)
+no_frame.pack(fill=X)
 
 # ZIP
 zip_frame = Frame(entry_fields)
 zip_label = Label(zip_frame, text="ZIP", justify=LEFT)
 zip_label.grid(row=0, column=1, padx=0)
 zip_entry = Entry(zip_frame, width=22, background=white)
+zip_entry.bind("<Button-3>", entry_clear)
 zip_entry.grid(row=0, column=0, padx=5)
 zip_frame.pack(fill=X)
 
@@ -1442,6 +1573,7 @@ country_frame = Frame(entry_fields)
 country_label = Label(country_frame, text="Country", justify=LEFT)
 country_label.grid(row=0, column=1, padx=0)
 country_entry = Entry(country_frame, width=22, background=white)
+country_entry.bind("<Button-3>", entry_clear)
 country_entry.grid(row=0, column=0, padx=5)
 country_frame.pack(fill=X)
 
@@ -1456,6 +1588,7 @@ contactname_frame = Frame(entry_fields)
 contactname_label = Label(contactname_frame, text="Contact", justify=LEFT)
 contactname_label.grid(row=0, column=1, padx=0)
 contact_entry = Entry(contactname_frame, width=22, background=white)
+contact_entry.bind("<Button-3>", entry_clear)
 contact_entry.grid(row=0, column=0, padx=5)
 contactname_frame.pack(fill=X)
 
@@ -1464,6 +1597,7 @@ phone_frame = Frame(entry_fields)
 phone_label = Label(phone_frame, text="Phone", justify=LEFT)
 phone_label.grid(row=0, column=1, padx=0)
 phone_entry = Entry(phone_frame, width=22, background=white)
+phone_entry.bind("<Button-3>", entry_clear)
 phone_entry.grid(row=0, column=0, padx=5)
 phone_frame.pack(fill=X)
 
@@ -1472,6 +1606,7 @@ email_frame = Frame(entry_fields)
 email_label = Label(email_frame, text="E-Mail", justify=LEFT)
 email_label.grid(row=0, column=1, padx=0)
 email_entry = Entry(email_frame, width=22, background=white)
+email_entry.bind("<Button-3>", entry_clear)
 email_entry.grid(row=0, column=0, padx=5)
 email_frame.pack(fill=X)
 
@@ -1486,6 +1621,7 @@ info_label.grid(row=0, column=1, padx=0)
 info_entry = Text(info_frame, width=25, height=8, background=white)
 info_entry.config(wrap=WORD)
 info_entry.bind("<Tab>", focus_next_window)
+info_entry.bind("<Button-3>", entry_clear)
 info_entry.grid(row=0, column=0, padx=5)
 info_frame.pack(fill=X)
 
@@ -1498,6 +1634,7 @@ fee_frame = Frame(entry_fields)
 fee_label = Label(fee_frame, text="Fee (N.N CCC)", justify=LEFT)
 fee_label.grid(row=0, column=1, padx=0)
 fee_entry = Entry(fee_frame, width=22, background=white)
+fee_entry.bind("<Button-3>", entry_clear_money)
 fee_entry.grid(row=0, column=0, padx=5)
 fee_frame.pack(fill=X)
 
@@ -1506,6 +1643,7 @@ travelmoney_frame = Frame(entry_fields)
 travelmoney_label = Label(travelmoney_frame, text="Travel Money", justify=LEFT)
 travelmoney_label.grid(row=0, column=1, padx=0)
 travelmoney_entry = Entry(travelmoney_frame, width=22, background=white)
+travelmoney_entry.bind("<Button-3>", entry_clear_money)
 travelmoney_entry.grid(row=0, column=0, padx=5)
 travelmoney_frame.pack(fill=X)
 
@@ -1528,6 +1666,7 @@ arrival_frame = Frame(entry_fields)
 arrival_label = Label(arrival_frame, text="Arrival Time", justify=LEFT)
 arrival_label.grid(row=0, column=1, padx=0)
 arrival_entry = Entry(arrival_frame, width=22, background=white)
+arrival_entry.bind("<Button-3>", entry_clear)
 arrival_entry.grid(row=0, column=0, padx=5)
 arrival_frame.pack(fill=X)
 
@@ -1536,6 +1675,7 @@ soundcheck_frame = Frame(entry_fields)
 soundcheck_label = Label(soundcheck_frame, text="Soundcheck Time", justify=LEFT)
 soundcheck_label.grid(row=0, column=1, padx=0)
 soundcheck_entry = Entry(soundcheck_frame, width=22, background=white)
+soundcheck_entry.bind("<Button-3>", entry_clear)
 soundcheck_entry.grid(row=0, column=0, padx=5)
 soundcheck_frame.pack(fill=X)
 
@@ -1544,6 +1684,7 @@ showtime_frame = Frame(entry_fields)
 showtime_label = Label(showtime_frame, text="Show Time", justify=LEFT)
 showtime_label.grid(row=0, column=1, padx=0)
 showtime_entry = Entry(showtime_frame, width=22, background=white)
+showtime_entry.bind("<Button-3>", entry_clear)
 showtime_entry.grid(row=0, column=0, padx=5)
 showtime_frame.pack(fill=X)
 
@@ -1553,6 +1694,7 @@ food_frame = Frame(entry_fields)
 food_label = Label(food_frame, text="Food & Drinks", justify=LEFT)
 food_label.grid(row=0, column=1, padx=0)
 food_entry = Entry(food_frame, width=22, background=white)
+food_entry.bind("<Button-3>", entry_clear)
 food_entry.grid(row=0, column=0, padx=5)
 food_frame.pack(fill=X)
 
@@ -1561,6 +1703,7 @@ accom_frame = Frame(entry_fields)
 accom_label = Label(accom_frame, text="Accomodation", justify=LEFT)
 accom_label.grid(row=0, column=1, padx=0)
 accom_entry = Entry(accom_frame, width=22, background=white)
+accom_entry.bind("<Button-3>", entry_clear)
 accom_entry.grid(row=0, column=0, padx=5)
 accom_frame.pack(fill=X)
 
@@ -1569,6 +1712,7 @@ breakfast_frame = Frame(entry_fields)
 breakfast_label = Label(breakfast_frame, text="Breakfast", justify=LEFT)
 breakfast_label.grid(row=0, column=1, padx=0)
 breakfast_entry = Entry(breakfast_frame, width=22, background=white)
+breakfast_entry.bind("<Button-3>", entry_clear)
 breakfast_entry.grid(row=0, column=0, padx=5)
 breakfast_frame.pack(fill=X)
 
@@ -1582,6 +1726,7 @@ print_frame = Frame(entry_fields)
 print_label = Label(print_frame, text="Print", justify=LEFT)
 print_label.grid(row=0, column=1, padx=0)
 print_entry = Entry(print_frame, width=22, background=white)
+print_entry.bind("<Button-3>", entry_clear)
 print_entry.grid(row=0, column=0, padx=5)
 print_frame.pack(fill=X)
 
@@ -1593,6 +1738,7 @@ addressprint_label.grid(row=0, column=1, padx=0)
 addressprint_entry = Text(addressprint_frame, width=25, height=4, background=white)
 addressprint_entry.config(wrap=WORD)
 addressprint_entry.bind("<Tab>", focus_next_window)
+addressprint_entry.bind("<Button-3>", entry_clear)
 addressprint_entry.grid(row=0, column=0, padx=5)
 addressprint_frame.pack(fill=X)
 
@@ -1623,15 +1769,16 @@ new_button.pack(side=TOP, anchor=W, padx=5, pady=5)
 
 #monitor
 monitorframe = Frame(root)
-monitorframe.grid(row=2, column=0, columnspan=2, rowspan=1, sticky=W+E+N+S, padx=5, pady=0)
+monitorframe.grid(row=3, column=0, columnspan=2, rowspan=1, sticky=N+W+E, padx=5, pady=0)
 
 xscrollbar = ttk.Scrollbar(monitorframe, orient=HORIZONTAL)
 xscrollbar.pack(side=BOTTOM, fill=X)
 yscrollbar = ttk.Scrollbar(monitorframe)
 yscrollbar.pack(side=RIGHT, fill=Y)
 
-monitor = Text(monitorframe, wrap=NONE, xscrollcommand=xscrollbar.set, yscrollcommand=yscrollbar.set, width=50, height=26, padx=5, pady=5)
+monitor = Text(monitorframe, wrap=NONE, xscrollcommand=xscrollbar.set, yscrollcommand=yscrollbar.set, width=50, height=24, padx=5, pady=5)
 monitor.bind("<Tab>", focus_next_window)
+monitor.bind("<Button-3>", open_monitor_textedit_click)
 monitor.pack(fill=X)
 xscrollbar.config(command=monitor.xview)
 yscrollbar.config(command=monitor.yview)
@@ -1640,9 +1787,9 @@ yscrollbar.config(command=monitor.yview)
 
 #Export path
 exportpath_label = Label(root, text="/Working/Folder/")
-exportpath_label.grid(row=3, column=0, columnspan=2, sticky=W+N+E+S)
+exportpath_label.grid(row=4, column=0, columnspan=2, sticky=W+N+E+S)
 exportpath_entry = Entry(root, width=52)
-exportpath_entry.grid(row=4, column=0, columnspan=2, sticky=W+N+E+S, padx=5)
+exportpath_entry.grid(row=5, column=0, columnspan=2, sticky=W+N+E+S, padx=5)
 
 #listbox
 gig_listbox_frame = Frame(root)
@@ -1652,15 +1799,40 @@ gig_listbox.bind("<ButtonRelease-1>", select_via_listbox)
 scrollbar.config(command=gig_listbox.yview)
 scrollbar.pack(side=RIGHT, fill=Y)
 gig_listbox.pack(side=LEFT, fill=BOTH, expand=1)
-gig_listbox_frame.grid(row=0, column=0, rowspan=1, sticky=N, padx=5, pady=5)
+gig_listbox_frame.grid(row=1, column=0, rowspan=1, columnspan= 1, sticky=N, padx=5, pady=5)
 
-#monitor presets
-monitor_presets = ttk.Combobox(root, width=18)
+
+# Search
+search_frame = Frame(root)
+#search_button = ttk.Button(search_frame, text="Clear", width=10, state="normal", command= search_show)
+#search_button.grid(row=0, column=1, padx=0)
+search_label = Label(search_frame, text="Search : ", justify=LEFT)
+search_label.grid(row=0, column=0, padx=0)
+search_entry = Entry(search_frame, width=34)
+search_entry.bind("<Return>", search_auto)
+search_entry.bind("<Button-3>", entry_clear)
+search_entry.grid(row=0, column=1, sticky=W+N+E+S)
+search_frame.grid(row=0, column=0, rowspan=1, columnspan=1, sticky=W+N+E+S, padx=5, pady=5)
+
+
+#monitor presets and monitor filter
+monitor_frame = Frame(root)
+monitor_presets = ttk.Combobox(monitor_frame, width=18)
 monitor_presets.bind("<Enter>", write_notes) # "Enter" == mouse hover widget
 monitor_presets.bind("<<ComboboxSelected>>", update_monitor)
 monitor_presets["values"] = preset_list
 monitor_presets.current(0) # set init preset
-monitor_presets.grid(row=1, column=0, pady=5, padx=5, sticky=W)
+monitor_presets.grid(row=0, column=0, pady=0, padx=5, sticky=W)
+
+filter_label = Label(monitor_frame, text="Filter : ", justify=LEFT)
+filter_label.grid(row=0, column=1, padx=0)
+
+filter_entry = Entry(monitor_frame, width=35)
+filter_entry.bind("<Return>", filter_auto)
+filter_entry.bind("<Button-3>", entry_clear)
+filter_entry.grid(row=0, column=2, sticky=W)
+
+monitor_frame.grid(row=2, column=0, rowspan=1, columnspan=2, sticky=W+N+E+S, padx=5, pady=5)
 
 
 
@@ -1680,7 +1852,9 @@ exportmenu = Menu(menubar, tearoff=0)
 exportmenu.add_command(label="Export This Show to PDF", command=import_one_data)
 exportmenu.add_command(label="Export All Shows to PDF", command=on_export_all_button_click)
 exportmenu.add_separator()
-exportmenu.add_command(label="Export Monitor to TXT", command=on_export_monitor)
+exportmenu.add_command(label="Export Monitor to TXT", command=export_monitor_only)
+exportmenu.add_separator()
+exportmenu.add_command(label="Open Monitor with Texteditor", command=open_monitor_textedit)
 menubar.add_cascade(label="Export", menu=exportmenu)
 
 # Folders

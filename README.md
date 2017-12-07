@@ -70,6 +70,9 @@ __Tips and Tricks:__
 * Change your currency on "Fee" only, the others will be updated automatically. Be careful, all currency entries have to be written as currency code : N.N CCC (i.e. 100.50 EUR) or N CCC (i.e 100 EUR).
 * Use TAB while adding shows, it is specially designed to go through all entries in the right order.
 * If you want to use BookerDB with different artists and different working folders, just install it several time on your computer. So you can have different remote working folder with each artist and you can also change the logo for each artist.
+* Use mouse right-click to delete text entries (works on all except the working folder).
+* Open external text editor directly with mouse right-click on monitor.
+
 
 
 
@@ -85,6 +88,7 @@ Export:
 * Export This Show to PDF: This will export the selected to to PDF into the working directory.
 * Export All Shows to PDF: This will export all Shows of the Database to PDFs into the working directory. Usefull to have all PDFs up-to-date with the database entries. Be carefull, this will overwrite all PDFs and depending on the amount of shows, this can take a really long time!
 * Export Monitor to TXT: This will export the current monitor view to a .txt file into the working folder. This will overwrite existing monitor exports. Really useful for sharing and printing.
+* Open Monitor with Texteditor: Exports the Monitor content to a .txt file and open it with the default text editor. Same: right-click with the mouse on the monitor.
 
 Folders:
 * Open Workdir: Opens the working directory.
@@ -117,6 +121,12 @@ __Buttons:__
 * Clear all fields of the current entry. This will not be saved until the entry is saved via "Save Edit".
 
 Important Feature: Keep in mind BookerDB is just a "mirror" to the database. That means, nothing will be saved until it is explecitely saved via "Save Edit".
+
+
+__Search/Filter:__
+
+* Search highlights the searched shows in the show list. Validate with "Enter". Right-click to delete.
+* Filter filters monitor text lines. Validate with "Enter". This will automatically trigger the search fonction for the show list. Right-click to delete.
 
 
 __Actual States:__
