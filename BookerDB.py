@@ -1265,13 +1265,14 @@ def add_to_db(x):
         if x == 1:
             delete_entry(int(spin.get()))
         else:
+            notify(str(city_entry.get()) + " - " + str(venue_entry.get()) + " - " + str(artist_entry.get()) + " added !")
             pass
 
         #sort data.csv alphabetically via bash
         os.system("sort data.csv -o data.csv")
         print("db alphabetically sorted")
 
-        notify(str(city_entry.get()) + " - " + str(venue_entry.get()) + " - " + str(artist_entry.get()) + " added !")
+
 
 
 
