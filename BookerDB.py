@@ -64,18 +64,57 @@ def website():
 
 
 
-# set focus shortcuts
-def set_focus1(event):
+
+# set shortcuts
+def shortcut_focus_search(event):
     search_entry.focus()
 
-def set_focus2(event):
+def shortcut_focus_filter(event):
     filter_entry.focus()
 
-def set_focus3(event):
+def shortcut_focus_artist(event):
+    artist_entry.focus()
+
+def shortcut_focus_monitorpresets(event):
     monitor_presets.focus()
 
-def set_focus4(event):
-    artist_entry.focus()
+def shortcut_focus_showlist(event):
+    gig_listbox.focus()
+
+def shortcut_save(event):
+    on_replace_click()
+
+def shortcut_delete(event):
+    on_delete_entry_click()
+
+def shortcut_add(event):
+    on_add_click()
+
+def shortcut_clear(event):
+    on_clear_text()
+
+def shortcut_backup(event):
+    database_backup()
+
+def shortcut_texteditor(event):
+    open_monitor_textedit()
+
+def shortcut_osm(event):
+    show_osm()
+
+def shortcut_gmaps(event):
+    show_gmaps()
+
+def shortcut_ddgo(event):
+    web_ddgo()
+
+def shortcut_g(event):
+    web_g()
+
+def shortcut_mail(event):
+    mailto()
+
+
 
 
 
@@ -1477,10 +1516,26 @@ root.title("BookerDB")
 root.geometry("830x800+300+30")
 root.resizable(False, False)
 
-root.bind("<Control-Key-1>", set_focus1)
-root.bind("<Control-Key-2>", set_focus2)
-root.bind("<Control-Key-3>", set_focus3)
-root.bind("<Control-Key-4>", set_focus4)
+#shortcuts
+root.bind("<Control-Key-1>", shortcut_focus_search)
+root.bind("<Control-Key-2>", shortcut_focus_filter)
+root.bind("<Control-Key-3>", shortcut_focus_artist)
+
+root.bind("<Control-Key-l>", shortcut_focus_showlist)
+root.bind("<Control-Key-p>", shortcut_focus_monitorpresets)
+
+root.bind("<Control-Key-s>", shortcut_save)
+root.bind("<Control-Key-d>", shortcut_delete)
+root.bind("<Control-Key-a>", shortcut_add)
+root.bind("<Control-Key-k>", shortcut_clear)
+root.bind("<Control-Key-b>", shortcut_backup)
+root.bind("<Control-Key-t>", shortcut_texteditor)
+
+root.bind("<Control-Key-o>", shortcut_osm)
+root.bind("<Control-Key-m>", shortcut_gmaps)
+root.bind("<Control-Key-q>", shortcut_ddgo)
+root.bind("<Control-Key-w>", shortcut_g)
+root.bind("<Control-Key-e>", shortcut_mail)
 
 
 #Button frame
@@ -1818,6 +1873,7 @@ gig_listbox_frame = Frame(root)
 scrollbar = ttk.Scrollbar(gig_listbox_frame, orient=VERTICAL)
 gig_listbox = Listbox(gig_listbox_frame, width= 40, height=18, yscrollcommand=scrollbar.set, selectmode=BROWSE)
 gig_listbox.bind("<ButtonRelease-1>", select_via_listbox)
+gig_listbox.bind("<Return>", select_via_listbox)
 scrollbar.config(command=gig_listbox.yview)
 scrollbar.pack(side=RIGHT, fill=Y)
 gig_listbox.pack(side=LEFT, fill=BOTH, expand=1)

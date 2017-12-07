@@ -76,7 +76,6 @@ __Tips and Tricks:__
 * If you want to use BookerDB with different artists and different working folders, just install it several time on your computer. So you can have different remote working folder with each artist and you can also change the logo for each artist.
 * Use mouse right-click to delete text entries (works on all except the working folder).
 * Open external text editor directly with mouse right-click on monitor.
-* Keybord Sortcuts: Ctrl+1 = Focus Search, Ctrl+2 = Focus Filter, Ctrl+3 = Focus Monitor Presets, Ctrl+4 = Focus first Entry.
 
 
 
@@ -143,4 +142,33 @@ __Actual States:__
 * CONTACT ONLY: A venue, contact, info, but not a organized show. This will insert 9999-99-99 as date, so the will be sorted at the end of the Database (not shown in show list).
 
 
+__Keyboard and Mouse Shortcuts:__
+
+Mouse:
+* Right-click on Entries : Delete Entry.
+* Right-click on Monitor : Open Monitor with default Text Editor. 
+* Mouse roll on "Monitor Presets" or "Actual State" to navigate quickly.
+* Left-click on Search and Filter will start the search/filtering.
+
+
+Keyboard:
+* Ctrl-1 : Focus on Search.
+* Ctrl-2 : Focus on Filter.
+* Ctrl-3 : Focus on first Entry (Artists).
+* Ctrl-L : Focus on Show List.
+* Ctrl-P : Focus on Monitor Presets.
+
+* Ctrl-S : Save/Edit this Show.
+* Ctrl-D : Delete this Show.
+* Ctrl-A : Add Show to Database.
+* Ctrl-K : Clear all Entries.
+* Ctrl-B : Backup Database.
+* Ctrl-T : Export Monitor and open it with default Text Editor.
+
+* Ctrl-O : Search on Open Street Map with default Web Browser.
+* Ctrl-M : Search on Google Maps with default Web Browser.
+* Ctrl-Q : Search on DuckDuckGo with default Web Browser.
+* Ctrl-W : Search on Google with default Web Browser.
+
+* Ctrl-E : Send E-Mail to Contact with default Mail Application.
 
