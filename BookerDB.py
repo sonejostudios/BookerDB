@@ -64,6 +64,22 @@ def website():
 
 
 
+# set focus shortcuts
+def set_focus1(event):
+    search_entry.focus()
+
+def set_focus2(event):
+    filter_entry.focus()
+
+def set_focus3(event):
+    monitor_presets.focus()
+
+def set_focus4(event):
+    artist_entry.focus()
+
+
+
+
 # search show in listbox
 def search_auto(event):
     search_show()
@@ -1460,6 +1476,11 @@ root.title("BookerDB")
 root.geometry("830x800+300+30")
 root.resizable(False, False)
 
+root.bind("<Control-Key-1>", set_focus1)
+root.bind("<Control-Key-2>", set_focus2)
+root.bind("<Control-Key-3>", set_focus3)
+root.bind("<Control-Key-4>", set_focus4)
+
 
 #Button frame
 button_frame = Frame(root)
@@ -1811,6 +1832,8 @@ search_label.grid(row=0, column=0, padx=0)
 search_entry = Entry(search_frame, width=34)
 search_entry.bind("<Return>", search_auto)
 search_entry.bind("<Button-3>", entry_clear)
+search_entry.bind("<Button-1>", search_auto)
+
 search_entry.grid(row=0, column=1, sticky=W+N+E+S)
 search_frame.grid(row=0, column=0, rowspan=1, columnspan=1, sticky=W+N+E+S, padx=5, pady=5)
 
@@ -1830,6 +1853,7 @@ filter_label.grid(row=0, column=1, padx=0)
 filter_entry = Entry(monitor_frame, width=35)
 filter_entry.bind("<Return>", filter_auto)
 filter_entry.bind("<Button-3>", entry_clear)
+filter_entry.bind("<Button-1>", filter_auto)
 filter_entry.grid(row=0, column=2, sticky=W)
 
 monitor_frame.grid(row=2, column=0, rowspan=1, columnspan=2, sticky=W+N+E+S, padx=5, pady=5)

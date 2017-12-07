@@ -76,6 +76,7 @@ __Tips and Tricks:__
 * If you want to use BookerDB with different artists and different working folders, just install it several time on your computer. So you can have different remote working folder with each artist and you can also change the logo for each artist.
 * Use mouse right-click to delete text entries (works on all except the working folder).
 * Open external text editor directly with mouse right-click on monitor.
+* Keybord Sortcuts: Ctrl+1 = Focus Search, Ctrl+2 = Focus Filter, Ctrl+3 = Focus Monitor Presets, Ctrl+4 = Focus first Entry.
 
 
 
@@ -129,8 +130,8 @@ Important: Keep in mind BookerDB is just a "mirror" to the database. That means,
 
 __Search/Filter:__
 
-* Search highlights the searched shows in the show list. Validate with "Enter". Right-click to delete.
-* Filter filters monitor text lines. Validate with "Enter". This will automatically trigger the search fonction for the show list. Right-click to delete.
+* Search highlights the searched shows in the show list. Validate with "Enter" or left-click. Right-click to delete. Focus it with "F1".
+* Filter filters monitor text lines. Validate with "Enter" or left-click. This will automatically trigger the search fonction for the show list. Right-click to delete. Focus it with "F3".
 
 
 __Actual States:__
