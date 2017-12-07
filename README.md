@@ -17,14 +17,18 @@ __Features:__
 * Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT ONLY, City, Country, Venue, Artist, Contacts, etc...
 * Statistics
 * Notes
+* Search
+* Filter Monitor
 * Export Show(s) to PDF file(s)
 * Export Monitor to text file (i.e for printing)
+* Open Monitor with default text editor
 * View show location on OSM or Gmaps (via Web Browser)
 * Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
-* Import/Export database to Working Folder. 
+* Send e-mail to contact via default mail client
+* Import/Export database to Working Folder
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
-* Backup system
+* Backup system with date and time
 * Open Folders from BookerDB directly (MATE, Cinnemon, GNOME, KDE only)
 * Notify actions via OS
 * and many many more...
@@ -88,7 +92,7 @@ Export:
 * Export This Show to PDF: This will export the selected to to PDF into the working directory.
 * Export All Shows to PDF: This will export all Shows of the Database to PDFs into the working directory. Usefull to have all PDFs up-to-date with the database entries. Be carefull, this will overwrite all PDFs and depending on the amount of shows, this can take a really long time!
 * Export Monitor to TXT: This will export the current monitor view to a .txt file into the working folder. This will overwrite existing monitor exports. Really useful for sharing and printing.
-* Open Monitor with Texteditor: Exports the Monitor content to a .txt file and open it with the default text editor. Same: right-click with the mouse on the monitor.
+* Open Monitor with Texteditor: Exports the Monitor content to a .txt file and open it with the default text editor. Same as: Right-click with the mouse on the monitor.
 
 Folders:
 * Open Workdir: Opens the working directory.
