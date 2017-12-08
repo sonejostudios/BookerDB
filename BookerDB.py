@@ -46,7 +46,7 @@ black = "#000000"
 
 
 preset_list  = ("COMING", "COMING + Artist", "PLAYED", "PLAYED + Artist", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY","Actual States",
-                "Statistics",  "Notes", "Cities", "Countries", "Artists", "Venues","Contacts",
+                "Statistics",  "Notes", "Cities", "Countries", "Artists", "Venues", "Fees", "Contacts", "Info",
                 "E-Mails", "COMING E-Mails", "PLAYED E-Mails","WAITING E-Mails","CANCELLED E-Mails", "CONTACT ONLY E-Mails",
                 "Address", "Address Print", "Print", "Database Monitor",
                 "Tour", "Tour2", "Tour3", "Tour4", "Tour5", "Tour6")
@@ -605,6 +605,8 @@ def read_tour():
             phone = str(row[9])
             email = str(row[10])
 
+            info = str(row[11]) + " " + str(row[12]) + " " + str(row[13]) + " " + str(row[14]) + " " + str(row[15]) + " " + str(row[16]) + " " + str(row[17]) + " " + str(row[18])
+
             fee = str(row[19])
             travelmoney = str(row[20])
             currency = str(fee[-4:])
@@ -653,6 +655,9 @@ def read_tour():
 
             elif monitor_presets_sel == "Contacts":
                 tour = venue +  " (" + city + " - " + date + " - " + artist + ") : "  + contact + " : " + phone + " - " +  email + "\n" + "\n"
+
+            elif monitor_presets_sel == "Info":
+                tour = date +  " - " + city + " - " + venue + " : "  + info + "\n" + "\n"
 
             elif monitor_presets_sel == "Print":
                 tour = city + " - " + venue  + " (" + artist + ") -> " + prints + "\n" + "\n"
@@ -726,6 +731,9 @@ def read_tour():
 
             elif monitor_presets_sel == "Venues":
                 tour = venue   + " (" + city + " - " + country + ") - " + date + " (" +  artist + ")" + " - " + fee + "\n"
+
+            elif monitor_presets_sel == "Fees":
+                tour = fee   + " / " + travelmoney + " - " + venue + " - " + city + " - " + date + " (" +  artist + ")"  + "\n"
 
 
             elif monitor_presets_sel == "Notes":
@@ -827,16 +835,19 @@ def read_tour():
 
 
     if monitor_presets_sel == "Actual States":
-        monitor.insert(0.0, "Actual States (All) (" + today + ") :\n\n")
+        monitor.insert(0.0, "Actual States (" + today + ") :\n\n")
 
     if monitor_presets_sel == "Statistics":
         monitor.insert(0.0, "Statistics (" + today + ") :\n\n")
 
     if monitor_presets_sel == "Contacts":
-        monitor.insert(0.0, "Contacts (All) (" + today + ") :\n\n")
+        monitor.insert(0.0, "Contacts (" + today + ") :\n\n")
+
+    if monitor_presets_sel == "Info":
+        monitor.insert(0.0, "Info (" + today + ") :\n\n")
 
     if monitor_presets_sel == "Print":
-        monitor.insert(0.0, "Print (All) (" + today + ") :\n\n")
+        monitor.insert(0.0, "Print (" + today + ") :\n\n")
 
     # reorder cities
     if monitor_presets_sel == "Cities":
@@ -858,18 +869,23 @@ def read_tour():
         temp_dump_read()
         monitor.insert(0.0, "Venues (" + today + ") :\n\n")
 
+    # reorder fees
+    if monitor_presets_sel == "Fees":
+        temp_dump_read()
+        monitor.insert(0.0, "Fees / Travel Money (" + today + ") :\n\n")
+
 
 
     if monitor_presets_sel == "Address":
-        monitor.insert(0.0, "Adresses (All) (" + today + ") :\n\n")
+        monitor.insert(0.0, "Adresses (" + today + ") :\n\n")
 
     if monitor_presets_sel == "Address Print":
-        monitor.insert(0.0, "Adresses for Print (All) (" + today + ") :\n\n")
+        monitor.insert(0.0, "Adresses for Print (" + today + ") :\n\n")
 
 
     if monitor_presets_sel == "Notes":
         read_notes()
-        #monitor.insert(0.0, "Notes (" + today + ") :\n\n")
+
 
     if monitor_presets_sel == "E-Mails":
         monitor.insert(0.0, "E-Mails (All) (" + today + ") :\n\n")
@@ -1385,6 +1401,7 @@ def add_to_db(x):
                   str(addressprint_entry.get(3.0, "3.0 lineend")), str(addressprint_entry.get(4.0, "4.0 lineend")),
                   str(statebox_entry.current())]
 
+
         with open(data_file,"a") as f:
             writer = csv.writer(f, lineterminator='\n')
             writer.writerow(fields)
@@ -1401,6 +1418,8 @@ def add_to_db(x):
         #sort data.csv alphabetically via bash
         os.system("sort data.csv -o data.csv")
         print("db alphabetically sorted")
+
+
 
 
 
