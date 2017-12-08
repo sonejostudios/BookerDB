@@ -19,12 +19,14 @@ __Features:__
 * Notes
 * Search
 * Filter Monitor
+* Backup and Restore
+* Sync Addresses and Contacts
 * Export Show(s) to PDF file(s)
 * Export Monitor to text file (i.e for printing)
-* Open Monitor with default text editor
+* Open Monitor with default Text Editor
 * View show location on OSM or Gmaps (via Web Browser)
 * Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
-* Send e-mail to contact via default mail client
+* Send e-mail to Contact via default Mail Client
 * Import/Export database to Working Folder
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
@@ -67,7 +69,7 @@ __Tips and Tricks:__
 * Point your working directory on a Cloud Service (Dropbox, Owncloud, Nextcloud etc). So the PDFs and all the exports will be shared with the other band/artist members. Use Import/Export Database to import it from or to export it to the remote working folder. Thanks to the remote database handling, different people can work on the same database. When imported, the remote database will be locked, so other people will not have access to it. Exporting it back will unlock it. If you are not using BookerDB with a remote database, you can ignore these options.
 * Export the desired monitor view and open it with your favorit Text Editor or with an Office Suite (i.e LibreOffice) for printing.
 * BookerDB makes an automatic database backup on starting (./bak/data.startbak.csv)
-* All manual backups will be stored in ./bak/ with the actual date and time.
+* All manual Backups will be stored in ./bak/ with the actual date and time.
 * BookerDB is only a Gui for the database. That means, not saved changes (changes, clean, etc) will only be saved by "Save Edit" od "Add". If you have deleted something by mistake, just don't save, go to an other show and come back, everything will be there as expected.
 * Thanks to the CSV standard, it is possible to edit the database with an Office Suite (i.e. LibreOffice Calc). This make database viewing and manipulation even easier! (but make a backup first...)
 * Change the BookerDB Logo with your own logo (in ./logo): "logo.png" will be used PDF export, "logo_gui.png" will be used in the GUI (this as to be 100x100 pixels).
@@ -76,6 +78,7 @@ __Tips and Tricks:__
 * If you want to use BookerDB with different artists and different working folders, just install it several time on your computer. So you can have different remote working folder with each artist and you can also change the logo for each artist.
 * Use mouse right-click to delete text entries (works on all except the working folder).
 * Open external text editor directly with mouse right-click on monitor.
+* Use Tools/Sync to copy Addresses and Contacts.
 
 
 
@@ -84,20 +87,25 @@ __Menu:__
 
 Database:
 * DB Backup: This makes a Backup of the Database with date and time. It will be stored in the Backup forlder (bak in the app's main folder). You can access this folder directly via the menu Folder/Backupdir.
+* Restore Backup: This will copy the newest Backup back to the main Database. If no actual Backups are available, this will restore the Start Backup.
 * Import from Workdir: This imports the Database from the working directory (if exported there before) to the app's root directory. This in only interesting if the working directory is pointed to a cloud folder and used between different people. Importing the Database from Workdir will lock the database in the working directory, so nobody else can import it until it is exported back.
 * Export to Workdir: Export the Database from the App's root directory to the working directoty. This will also unlock the Database in the working directory.
 
 
-Export:
+Tools:
 * Export This Show to PDF: This will export the selected to to PDF into the working directory.
 * Export All Shows to PDF: This will export all Shows of the Database to PDFs into the working directory. Usefull to have all PDFs up-to-date with the database entries. Be carefull, this will overwrite all PDFs and depending on the amount of shows, this can take a really long time!
 * Export Monitor to TXT: This will export the current monitor view to a .txt file into the working folder. This will overwrite existing monitor exports. Really useful for sharing and printing.
 * Open Monitor with Texteditor: Exports the Monitor content to a .txt file and open it with the default text editor. Same as: Right-click with the mouse on the monitor.
+* Sync the Venue's Address : This will copy the current Address to all Shows with the same Venue. This also trigger an automatic Backup.
+* Sync the Venue's Contact : This will copy the current Contact Entries to all Shows with the same Venue. This also trigger an automatic Backup.
+
 
 Folders:
 * Open Workdir: Opens the working directory.
 * Open Backupdir: Opens the backup directory (bak).
 * Open Rootdir: Opens the root directory of BookerDB.
+
 
 Web:
 * Show on OSM: Try to find the Venue's Address on Open Street Map.
@@ -112,9 +120,11 @@ Web:
 
 (All Web Links are handled by DuckDuckGo with the Bang Syntax).
 
+
 Help:
 * Github: Direct link to BookerDB's Github.
 * About: About BookerDB and version number.
+
 
 
 __Buttons:__

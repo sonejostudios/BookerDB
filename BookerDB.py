@@ -8,6 +8,7 @@ import datetime
 import subprocess
 from subprocess import call
 import webbrowser
+from re import split
 
 from tkinter import *
 from tkinter import ttk
@@ -15,7 +16,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.5"
+version = "0.2.6"
 
 data_file = "data.csv"
 
@@ -37,6 +38,7 @@ today = date_time[:10]
 
 pdf_ypos = +20
 
+newest_backup = "data.startbak"
 
 
 white = "#ffffff"
@@ -61,6 +63,70 @@ def about_app():
 
 def website():
     webbrowser.open_new_tab("https://github.com/sonejostudios/BookerDB")
+
+
+
+# sync address
+def sync_address_dialog():
+    result = messagebox.askquestion(
+        "Sync", "This will sync and replace all addresses for this venue.\n\n"
+                "Are you sure?\n\nThis will also save and trigger a backup before changements.", icon='warning')
+    if result == 'yes':
+        database_backup()
+        sync_entries(0)
+    else:
+        pass
+
+
+def sync_contact_dialog():
+    result = messagebox.askquestion(
+        "Sync", "This will sync and replace all Contact Entries for this Venue.\n\n"
+                "Are you sure?\n\nThis will also save and trigger a Backup before changements.", icon='warning')
+    if result == 'yes':
+        database_backup()
+        sync_entries(1)
+    else:
+        pass
+
+
+def sync_entries(x):
+    print("sync address")
+
+    venue = venue_entry.get()
+
+
+    with open('data.csv', 'r') as f, open('temp.csv', 'w') as fw:
+        reader = csv.reader(f)
+        writer = csv.writer(fw)
+
+        for row in reader:
+
+            if venue in row and x == 0:
+                row[1] = city_entry.get()
+                row[4] = street_entry.get()
+                row[5] = no_entry.get()
+                row[6] = zip_entry.get()
+                row[7] = country_entry.get()
+
+            if venue in row and x == 1:
+                row[8] = contact_entry.get()
+                row[9] = phone_entry.get()
+                row[10] = email_entry.get()
+
+            # print(row)
+
+            # write the row back into temp file
+            writer.writerow(row)
+
+
+    # copy temp to data and replace it
+    os.system("cp temp.csv data.csv")
+
+    # update show list
+    read_tour()
+
+    notify("All Venue's Addresses synchronized.")
+
 
 
 
@@ -592,10 +658,10 @@ def read_tour():
                 tour = city + " - " + venue  + " (" + artist + ") -> " + prints + "\n" + "\n"
 
             elif monitor_presets_sel == "Address":
-                tour = venue + "\n" + street + " " + nr + "\n" + zip + " " + city + "\n" + country + "\n" + "\n"
+                tour = venue + " : " + street + " " + nr + ", " + zip + " " + city + ", " + country + "\n" + "\n"
 
             elif monitor_presets_sel == "Address Print":
-                tour = venue + "\n" + addressprint1 + "\n" + addressprint2 + "\n" + addressprint3 + "\n" + addressprint4 + "\n\n" + "\n"
+                tour = venue + " : " + addressprint1 + ", " + addressprint2 + ", " + addressprint3 + ", " + addressprint4 + "\n" + "\n"
 
             elif monitor_presets_sel == "Statistics":
                 pass
@@ -973,13 +1039,38 @@ def database_backup():
     date_time_file2 = date_time_file.replace(" ", "_")
     date_time_file3 = date_time_file2.replace(":", "-")
 
-    #backup with date
-    os.system("cp data.csv bak/" + date_time_file3 +  ".csv")
+    global newest_backup
+    newest_backup = date_time_file3
+
+    #backup with date and time
+    os.system("cp data.csv bak/" + newest_backup +  ".csv")
 
     print(date_time_file3)
 
     print("Database Backup")
-    notify("Database Backup done.")
+    notify("Database Backup done.\nBackup : " + newest_backup + ".csv")
+
+
+#restore backup
+def on_restore_backup():
+
+    result = messagebox.askquestion(
+        "Restore Backup", "This will copy the newest Backup back to the main Database.\n\nRestore from : " + newest_backup + ".csv\n\nAre you sure?", icon='warning')
+    if result == 'yes':
+        restore_backup()
+    else:
+        pass
+
+def restore_backup():
+
+    # restore newest backup
+    os.system("cp bak/" + newest_backup + ".csv data.csv ")
+
+    print(newest_backup)
+    print("Backup restored")
+    notify("Newest Backup copied back to Database.\nRestored from : " + newest_backup + ".csv")
+
+    read_tour()
 
 
 
@@ -1245,10 +1336,10 @@ def on_replace_click():
     add_to_db(1)
 
     #wenn added go up in spinbox (because remove_entry goes one down)
-    if len(str(date_entry.get())) != 0:
-        spinnum = int(spin.get()) + 1
-        spin.delete(0, 'end')
-        spin.insert(0, spinnum)
+    #if len(str(date_entry.get())) != 0:
+    spinnum = int(spin.get()) + 1
+    spin.delete(0, 'end')
+    spin.insert(0, spinnum)
 
     read_csv_line()
 
@@ -1278,7 +1369,7 @@ def add_to_db(x):
         messagebox.showerror("Error", "For saving/adding, you need to enter at least:\n+ a Date\n+ a Fee and its Currency\n+ a Travel Money and its Currency")
 
 
-    # get all entries and write the to DB
+    # get all entries and write them to DB
     else:
         fields = [str(date_entry.get()), str(city_entry.get()), str(venue_entry.get()), str(artist_entry.get()),
                   str(street_entry.get()), str(no_entry.get()), str(zip_entry.get()), str(country_entry.get()),
@@ -1922,6 +2013,8 @@ menubar = Menu(root)
 # Database
 dbmenu = Menu(menubar, tearoff=0)
 dbmenu.add_command(label="DB Backup", command=database_backup)
+dbmenu.add_command(label="Restore Backup", command=on_restore_backup)
+dbmenu.add_separator()
 dbmenu.add_command(label="Import from Workdir", command=import_from_workdir)
 dbmenu.add_command(label="Export to Workdir", command=export_to_workdir)
 dbmenu.add_separator()
@@ -1934,9 +2027,11 @@ exportmenu.add_command(label="Export This Show to PDF", command=import_one_data)
 exportmenu.add_command(label="Export All Shows to PDF", command=on_export_all_button_click)
 exportmenu.add_separator()
 exportmenu.add_command(label="Export Monitor to TXT", command=export_monitor_only)
-exportmenu.add_separator()
 exportmenu.add_command(label="Open Monitor with Texteditor", command=open_monitor_textedit)
-menubar.add_cascade(label="Export", menu=exportmenu)
+exportmenu.add_separator()
+exportmenu.add_command(label="Sync the Venue's Address", command=sync_address_dialog)
+exportmenu.add_command(label="Sync the Venue's Contact", command=sync_contact_dialog)
+menubar.add_cascade(label="Tools", menu=exportmenu)
 
 # Folders
 foldermenu = Menu(menubar, tearoff=0)
