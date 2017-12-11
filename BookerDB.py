@@ -102,16 +102,18 @@ def sync_entries(x):
 
         for row in reader:
 
-            if venue and city in row and x == 0:
-                row[4] = street_entry.get()
-                row[5] = no_entry.get()
-                row[6] = zip_entry.get()
-                row[7] = country_entry.get()
+            if venue == row[2] and x == 0:
+                if city == row[1]:
+                    row[4] = street_entry.get()
+                    row[5] = no_entry.get()
+                    row[6] = zip_entry.get()
+                    row[7] = country_entry.get()
 
-            if venue and city in row and x == 1:
-                row[8] = contact_entry.get()
-                row[9] = phone_entry.get()
-                row[10] = email_entry.get()
+            if venue == row[2] and x == 1:
+                if city == row[1]:
+                    row[8] = contact_entry.get()
+                    row[9] = phone_entry.get()
+                    row[10] = email_entry.get()
 
             # print(row)
 
