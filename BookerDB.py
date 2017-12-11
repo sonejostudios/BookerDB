@@ -16,7 +16,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.6"
+version = "0.2.7"
 
 data_file = "data.csv"
 
@@ -69,7 +69,7 @@ def website():
 # sync address
 def sync_address_dialog():
     result = messagebox.askquestion(
-        "Sync", "This will sync and replace all addresses for this venue.\n\n"
+        "Sync", "This will sync and replace all Addresses for this Venue in this City. This will replace Street, No, ZIP and Country.\n\n"
                 "Are you sure?\n\nThis will also save and trigger a backup before changements.", icon='warning')
     if result == 'yes':
         database_backup()
@@ -80,7 +80,7 @@ def sync_address_dialog():
 
 def sync_contact_dialog():
     result = messagebox.askquestion(
-        "Sync", "This will sync and replace all Contact Entries for this Venue.\n\n"
+        "Sync", "This will sync and replace all Contact Entries for this Venue in this City. This will replace Contact, Phone and E-Mail.\n\n"
                 "Are you sure?\n\nThis will also save and trigger a Backup before changements.", icon='warning')
     if result == 'yes':
         database_backup()
@@ -93,6 +93,7 @@ def sync_entries(x):
     print("sync address")
 
     venue = venue_entry.get()
+    city = city_entry.get()
 
 
     with open('data.csv', 'r') as f, open('temp.csv', 'w') as fw:
@@ -101,14 +102,13 @@ def sync_entries(x):
 
         for row in reader:
 
-            if venue in row and x == 0:
-                row[1] = city_entry.get()
+            if venue and city in row and x == 0:
                 row[4] = street_entry.get()
                 row[5] = no_entry.get()
                 row[6] = zip_entry.get()
                 row[7] = country_entry.get()
 
-            if venue in row and x == 1:
+            if venue and city in row and x == 1:
                 row[8] = contact_entry.get()
                 row[9] = phone_entry.get()
                 row[10] = email_entry.get()

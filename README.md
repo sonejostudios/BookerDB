@@ -97,8 +97,8 @@ Tools:
 * Export All Shows to PDF: This will export all Shows of the Database to PDFs into the working directory. Usefull to have all PDFs up-to-date with the database entries. Be carefull, this will overwrite all PDFs and depending on the amount of shows, this can take a really long time!
 * Export Monitor to TXT: This will export the current monitor view to a .txt file into the working folder. This will overwrite existing monitor exports. Really useful for sharing and printing.
 * Open Monitor with Texteditor: Exports the Monitor content to a .txt file and open it with the default text editor. Same as: Right-click with the mouse on the monitor.
-* Sync the Venue's Address : This will copy the current Address to all Shows with the same Venue. This also trigger an automatic Backup.
-* Sync the Venue's Contact : This will copy the current Contact Entries to all Shows with the same Venue. This also trigger an automatic Backup.
+* Sync the Venue's Address : This will copy the current Address to all Shows with the same Venue in this City. This will replace Street, No, ZIP and Country. This also trigger an automatic Backup.
+* Sync the Venue's Contact : This will copy the current Contact Entries to all Shows with the same Venue in this City. This will replace Contact, Phone and E-Mail. This also trigger an automatic Backup.
 
 
 Folders:
