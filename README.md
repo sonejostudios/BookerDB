@@ -11,10 +11,10 @@ It has a monitor to show all kind of filters around the database, like coming da
 ![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
 
 
-__Features:__
+__Main Features:__
 
 * Add/Save/Delete Shows
-* Monitor Filters COMING, PLAYED, WAITING, CANCELLED, CONTACT ONLY, City, Country, Venue, Artist, Contacts, etc...
+* Monitor Filters COMING, PLAYED, WAITING, CANCELLED, WORK IN PROGRESS, CONTACT ONLY, City, Country, Venue, Artist, Contacts, etc...
 * Statistics
 * Notes
 * Search
@@ -30,9 +30,9 @@ __Features:__
 * Import/Export database to Working Folder
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
-* Backup system with date and time
 * Open Folders from BookerDB directly (MATE, Cinnemon, GNOME, KDE only)
 * Notify actions via OS
+* Sync Addresses and Contacts
 * and many many more...
   
 
@@ -140,7 +140,7 @@ Important: Keep in mind BookerDB is just a "mirror" to the database. That means,
 __Search/Filter:__
 
 * Search highlights the searched shows in the show list. Validate with "Enter" or left-click. Right-click to delete. Focus it with "F1".
-* Filter filters monitor text lines. Validate with "Enter" or left-click. This will automatically trigger the search fonction for the show list. Right-click to delete. Focus it with "F3".
+* Filter filters monitor text lines. Validate with "Enter" or left-click. This will automatically trigger the search fonction for the show list. Right-click to delete.
 
 
 __Actual States:__
@@ -149,7 +149,8 @@ __Actual States:__
 * PLAYED: Played and paid shows (completely done).
 * WAITING FOR MONEY: Played but not paid yet, waiting for payment.
 * CANCELLED: Cancelled shows.
-* CONTACT ONLY: A venue, contact, info, but not a organized show. This will insert 9999-99-99 as date, so the will be sorted at the end of the Database (not shown in show list).
+* WORK IN PROGRESS: Shows actually in negociation (work in progress). If the date is not fixed yet, use 9999-99-99 as date.
+* CONTACT ONLY: A venue, contact, info, but not a organized show. This will insert 9999-99-99 as date (not shown in show list), and the show will be sorted at the end of the Database.
 
 
 __Keyboard and Mouse Shortcuts:__
@@ -162,23 +163,23 @@ Mouse:
 
 
 Keyboard:
-* Ctrl-1 : Focus on Search.
-* Ctrl-2 : Focus on Filter.
-* Ctrl-3 : Focus on first Entry (Artists).
-* Ctrl-L : Focus on Show List.
-* Ctrl-P : Focus on Monitor Presets.
+* Ctrl+1 : Focus on Search.
+* Ctrl+2 : Focus on Filter.
+* Ctrl+3 : Focus on first Entry (Artists).
+* Ctrl+L : Focus on Show List.
+* Ctrl+P : Focus on Monitor Presets.
 
-* Ctrl-S : Save/Edit this Show.
-* Ctrl-D : Delete this Show.
-* Ctrl-A : Add Show to Database.
-* Ctrl-K : Clear all Entries.
-* Ctrl-B : Backup Database.
-* Ctrl-T : Export Monitor and open it with default Text Editor.
+* Ctrl+S : Save/Edit this Show.
+* Ctrl+D : Delete this Show.
+* Ctrl+A : Add Show to Database.
+* Ctrl+K : Clear all Entries.
+* Ctrl+B : Backup Database.
+* Ctrl+T : Export Monitor and open it with default Text Editor.
 
-* Ctrl-O : Search on Open Street Map with default Web Browser.
-* Ctrl-M : Search on Google Maps with default Web Browser.
-* Ctrl-Q : Search on DuckDuckGo with default Web Browser.
-* Ctrl-W : Search on Google with default Web Browser.
+* Ctrl+O : Search on Open Street Map with default Web Browser.
+* Ctrl+M : Search on Google Maps with default Web Browser.
+* Ctrl+Q : Search on DuckDuckGo with default Web Browser.
+* Ctrl+W : Search on Google with default Web Browser.
 
-* Ctrl-E : Send E-Mail to Contact with default Mail Application.
+* Ctrl+E : Send E-Mail to Contact with default Mail Application.
 
