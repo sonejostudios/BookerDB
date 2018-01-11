@@ -26,7 +26,7 @@ __Main Features:__
 * Open Monitor with default Text Editor
 * View show location on OSM or Gmaps (via Web Browser)
 * Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
-* Send e-mail to Contact via default Mail Client
+* Send E-Mail to Contact via default Mail Client
 * Import/Export database to Working Folder
 * Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
 * Use your own logo
