@@ -24,7 +24,7 @@ __Main Features:__
 * Export Show(s) to PDF file(s)
 * Export Monitor to text file (i.e for printing)
 * Open Monitor with default Text Editor
-* View show location on OSM or Gmaps (via Web Browser)
+* View Venue location on OSM or Gmaps (via Web Browser)
 * Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
 * Send E-Mail to Contact via default Mail Client
 * Import/Export database to Working Folder
