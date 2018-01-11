@@ -16,7 +16,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.7"
+version = "0.2.8"
 
 data_file = "data.csv"
 
@@ -45,14 +45,14 @@ white = "#ffffff"
 black = "#000000"
 
 
-preset_list  = ("COMING", "COMING + Artist", "PLAYED", "PLAYED + Artist", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY","Actual States",
-                "Statistics",  "Notes", "Cities", "Countries", "Artists", "Venues", "Fees", "Contacts", "Info",
-                "E-Mails", "COMING E-Mails", "PLAYED E-Mails","WAITING E-Mails","CANCELLED E-Mails", "CONTACT ONLY E-Mails",
+preset_list  = ("COMING", "COMING + Artist", "PLAYED", "PLAYED + Artist", "WAITING FOR MONEY", "CANCELLED", "WORK IN PROGRESS", "CONTACT ONLY",
+                "Statistics",  "Notes", "Actual States", "Cities", "Countries", "Artists", "Venues", "Fees", "Contacts", "Info",
+                "E-Mails", "COMING E-Mails", "PLAYED E-Mails","WAITING E-Mails","CANCELLED E-Mails", "IN PROGRESS E-Mails","CONTACT ONLY E-Mails",
                 "Address", "Address Print", "Print", "Database Monitor",
                 "Tour", "Tour2", "Tour3", "Tour4", "Tour5", "Tour6")
 
 
-state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "CONTACT ONLY")
+state_list = ("COMING", "PLAYED", "WAITING FOR MONEY", "CANCELLED", "WORK IN PROGRESS", "CONTACT ONLY")
 
 
 
@@ -384,7 +384,7 @@ def state_check(event):
         messagebox.showwarning("Info", "CONTACT ONLY will delete the date when saved or added.")
 
     elif statebox_entry.get() != "CONTACT ONLY" and date_entry.get() == "9999-99-99":
-        date_entry.delete(0,END)
+        #date_entry.delete(0,END)
         date_entry.focus_set()
 
 
@@ -480,15 +480,19 @@ def stats():
     played_fee = 0.0
     cancelled_fee = 0.0
     waiting_fee = 0.0
-    contact_fee = 0
+    wip_fee = 0.0
+    contact_fee = 0.0
 
     coming_count = 0
     played_count = 0
     cancelled_count = 0
     waiting_count = 0
+    wip_count = 0
     contact_count = 0
 
     waiting_travelmoney = 0.0
+
+
 
 
     # monitor view presets
@@ -531,6 +535,10 @@ def stats():
                     cancelled_count += 1
 
                 if state == 4:
+                    wip_fee += fee_float
+                    wip_count += 1
+
+                if state == 5:
                     contact_fee += fee_float
                     contact_count += 1
 
@@ -565,6 +573,9 @@ def stats():
                     "-----------------------------------" + "\n\n" + \
                     "CANCELLED - Shows : " + str(cancelled_count) + "\n" + \
                     "CANCELLED - Fee : " + str(cancelled_fee) + currency + "\n\n" + \
+                    "-----------------------------------" + "\n\n" + \
+                    "WORK IN PROGRESS - Amount : " + str(wip_count) + "\n" + \
+                    "WORK IN PROGRESS - Fee : " + str(wip_fee) + currency + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
                     "CONTACT ONLY - Amount : " + str(contact_count) + "\n\n" + \
                     "-----------------------------------" + "\n\n" + \
@@ -686,25 +697,25 @@ def read_tour():
 
             elif monitor_presets_sel == "COMING + Artist":
                 if statebox == "COMING":
-                    tour = date + " - " + city   + " - " + venue  + " - " + artist + "\n"
+                    tour = date + " - " + city + " - " + venue  + " - " + artist + "\n"
                 else:
                     tour = ""
 
             elif monitor_presets_sel == "PLAYED":
                 if statebox == "PLAYED":
-                    tour = date + " - " + city   + " - " + venue + "\n"
+                    tour = date + " - " + city + " - " + venue + "\n"
                 else:
                     tour = ""
 
             elif monitor_presets_sel == "PLAYED + Artist":
                 if statebox == "PLAYED":
-                    tour = date + " - " + city   + " - " + venue + " - " + artist + "\n"
+                    tour = date + " - " + city + " - " + venue + " - " + artist + "\n"
                 else:
                     tour = ""
 
             elif monitor_presets_sel == "CANCELLED":
                 if statebox == "CANCELLED":
-                    tour = date + " - " + city   + " - " + venue + " - " + artist + "\n"
+                    tour = date + " - " + city + " - " + venue + " - " + artist + "\n"
                 else:
                     tour = ""
 
@@ -714,9 +725,15 @@ def read_tour():
                 else:
                     tour = ""
 
+            elif monitor_presets_sel == "WORK IN PROGRESS":
+                if statebox == "WORK IN PROGRESS":
+                    tour = date + " - " + city + " - " + venue + " - " + artist + " : " + str(fee_sum) + currency + "\n"
+                else:
+                    tour = ""
+
             elif monitor_presets_sel == "CONTACT ONLY":
                 if statebox == "CONTACT ONLY":
-                    tour = city  + " (" + country + ")" + " - " + venue + " - " + artist + "\n"
+                    tour = city  + " (" + country + ") - " + venue + " - " + artist + "\n"
                 else:
                     tour = ""
 
@@ -796,6 +813,15 @@ def read_tour():
                 else:
                     tour = ""
 
+            elif monitor_presets_sel == "IN PROGRESS E-Mails":
+                if statebox == "WORK IN PROGRESS":
+                    if email != "":
+                        tour = contact + " <" + email + ">\n"
+                    else:
+                        tour = ""
+                else:
+                    tour = ""
+
 
 
             else:
@@ -831,6 +857,9 @@ def read_tour():
 
     if monitor_presets_sel == "WAITING FOR MONEY":
         monitor.insert(0.0, "WAITING FOR MONEY : Fee + Travel (" + today + ") :\n\n")
+
+    if monitor_presets_sel == "WORK IN PROGRESS":
+        monitor.insert(0.0, "WORK IN PROGRESS (" + today + ") :\n\n")
 
     if monitor_presets_sel == "CONTACT ONLY":
         monitor.insert(0.0, "CONTACT ONLY (" + today + ") :\n\n")
@@ -903,6 +932,9 @@ def read_tour():
 
     if monitor_presets_sel == "CANCELLED E-Mails":
         monitor.insert(0.0, "CANCELLED - E-Mails (" + today + ") :\n\n")
+
+    if monitor_presets_sel == "IN PROGRESS E-Mails":
+        monitor.insert(0.0, "WORK IN PROGRESS - E-Mails (" + today + ") :\n\n")
 
     if monitor_presets_sel == "CONTACT ONLY E-Mails":
         monitor.insert(0.0, "CONTACT ONLY - E-Mails (" + today + ") :\n\n")
@@ -1994,8 +2026,6 @@ gig_listbox_frame.grid(row=1, column=0, rowspan=1, columnspan= 1, sticky=N, padx
 
 # Search
 search_frame = Frame(root)
-#search_button = ttk.Button(search_frame, text="Clear", width=10, state="normal", command= search_show)
-#search_button.grid(row=0, column=1, padx=0)
 search_label = Label(search_frame, text="Search : ", justify=LEFT)
 search_label.grid(row=0, column=0, padx=0)
 search_entry = Entry(search_frame, width=34)
@@ -2033,7 +2063,7 @@ monitor_frame.grid(row=2, column=0, rowspan=1, columnspan=2, sticky=W+N+E+S, pad
 menubar = Menu(root)
 # Database
 dbmenu = Menu(menubar, tearoff=0)
-dbmenu.add_command(label="DB Backup", command=database_backup)
+dbmenu.add_command(label="DB Backup", accelerator="Ctrl+B", command=database_backup)
 dbmenu.add_command(label="Restore Backup", command=on_restore_backup)
 dbmenu.add_separator()
 dbmenu.add_command(label="Import from Workdir", command=import_from_workdir)
@@ -2048,7 +2078,7 @@ exportmenu.add_command(label="Export This Show to PDF", command=import_one_data)
 exportmenu.add_command(label="Export All Shows to PDF", command=on_export_all_button_click)
 exportmenu.add_separator()
 exportmenu.add_command(label="Export Monitor to TXT", command=export_monitor_only)
-exportmenu.add_command(label="Open Monitor with Texteditor", command=open_monitor_textedit)
+exportmenu.add_command(label="Open Monitor with Texteditor", accelerator="Ctrl+T", command=open_monitor_textedit)
 exportmenu.add_separator()
 exportmenu.add_command(label="Sync the Venue's Address", command=sync_address_dialog)
 exportmenu.add_command(label="Sync the Venue's Contact", command=sync_contact_dialog)
@@ -2064,18 +2094,18 @@ menubar.add_cascade(label="Folders", menu=foldermenu)
 
 # Web direct links
 weblinks = Menu(menubar, tearoff=0)
-weblinks.add_command(label="Show on OSM", command=show_osm)
-weblinks.add_command(label="Show on GMaps", command=show_gmaps)
+weblinks.add_command(label="Show on OSM", accelerator="Ctrl+O", command=show_osm)
+weblinks.add_command(label="Show on GMaps", accelerator="Ctrl+M",command=show_gmaps)
 weblinks.add_separator()
-weblinks.add_command(label="Web Search DDGo", command=web_ddgo)
-weblinks.add_command(label="Web Search G", command=web_g)
+weblinks.add_command(label="Web Search DDGo", accelerator="Ctrl+Q",command=web_ddgo)
+weblinks.add_command(label="Web Search G", accelerator="Ctrl+W",command=web_g)
 weblinks.add_separator()
 weblinks.add_command(label="Web Search Images", command=web_images)
 weblinks.add_command(label="Web Search Yt", command=web_yt)
 weblinks.add_command(label="Web Search Fb", command=web_fb)
 weblinks.add_command(label="Web Search Sc", command=web_sc)
 weblinks.add_separator()
-weblinks.add_command(label="E-Mail to Contact", command=mailto)
+weblinks.add_command(label="E-Mail to Contact", accelerator="Ctrl+E",command=mailto)
 menubar.add_cascade(label="Web", menu=weblinks)
 
 
