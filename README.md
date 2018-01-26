@@ -79,6 +79,7 @@ __Tips and Tricks:__
 * Use mouse right-click to delete text entries (works on all except the working folder).
 * Open external text editor directly with mouse right-click on monitor.
 * Use Tools/Sync to copy Addresses and Contacts.
+* In the show list, special states are shown with special symbols: -> = WORK IN PROGRESS, # = CANCELLED, $ = WAITING FOR MONEY, (space) = CONTACT ONLY.
 
 
 
@@ -147,9 +148,9 @@ __Actual States:__
 
 * COMING: Coming shows.
 * PLAYED: Played and paid shows (completely done).
-* WAITING FOR MONEY: Played but not paid yet, waiting for payment.
-* CANCELLED: Cancelled shows.
-* WORK IN PROGRESS: Shows actually in negociation (work in progress). If the date is not fixed yet, use 9999-99-99 as date.
+* WAITING FOR MONEY: Played but not paid yet, waiting for payment. ($ in show list).
+* CANCELLED: Cancelled shows. (# in show list).
+* WORK IN PROGRESS: Shows actually in negociation (work in progress). If the date is not fixed yet, use 9999-99-99 as date. (-> in show list).
 * CONTACT ONLY: A venue, contact, info, but not a organized show. This will insert 9999-99-99 as date (not shown in show list), and the show will be sorted at the end of the Database.
 
 

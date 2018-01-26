@@ -16,7 +16,8 @@ from tkinter import messagebox
 from tkinter.font import Font
 
 
-version = "0.2.8"
+
+version = "0.2.9"
 
 data_file = "data.csv"
 
@@ -329,7 +330,7 @@ def set_env():
     elif cmd_exists("dolphin") == TRUE: # KDE
         return "dolphin"
     else:
-        messagebox.showerror("Error", "No filebrowser detected.")
+        messagebox.showerror("Error", "No file browser detected.")
 
 
 # open workdir
@@ -637,12 +638,28 @@ def read_tour():
             statebox = state_list[int(row[32])]
 
 
-            #insert in listbox
-            if date == "9999-99-99":
-                tour = "   " + city +  " (" +country + ")" + " - " + venue   #" (" +country + ")" +
+
+            #insert in listbox special formatting for states
+            if statebox == "CONTACT ONLY":
+                tour = "    " + city +  " (" + country + ")" + " - " + venue
+
+            elif statebox == "WORK IN PROGRESS":
+                if date != "9999-99-99":
+                    tour = "-> " + date + " - " + city + " - " + venue + " - " + artist
+                else:
+                    tour = "-> " + city +  " (" + country + ")" + " - " + venue
+
+            elif statebox == "WAITING FOR MONEY":
+                tour = " $ " + date + " - " + city + " - " + venue + " - " + artist
+
+            elif statebox == "CANCELLED":
+                tour = " # " + date + " - " + city + " - " + venue + " - " + artist
+
             else:
                 tour = date + " - " + city + " - " + venue  + " - " + artist
+
             gig_listbox.insert(END, tour)
+
 
 
             #monitor view presets
