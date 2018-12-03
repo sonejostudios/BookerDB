@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # BookerDB - Open Source Show Management System
 
 from reportlab.pdfgen import canvas
@@ -14,6 +16,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter.font import Font
+import tkinter.font as font
 
 
 
@@ -1674,7 +1677,7 @@ def generate_pdf(date, city, venue, artist, street, nr, zip, country, contact, p
 
 root = Tk()
 root.title("BookerDB")
-root.geometry("830x800+300+30")
+root.geometry("830x810+300+30")
 root.resizable(False, False)
 
 #shortcuts
@@ -2136,6 +2139,11 @@ menubar.add_cascade(label="Help", menu=helpmenu)
 root.config(menu=menubar)
 
 
+# set global font size
+font.nametofont('TkDefaultFont').configure(size=9)
+font.nametofont('TkTextFont').configure(size=9)
+font.nametofont('TkMenuFont').configure(size=9)
+font.nametofont('TkFixedFont').configure(size=9)
 
 
 
