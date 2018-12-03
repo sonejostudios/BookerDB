@@ -287,7 +287,10 @@ def do_nothing():
 
 #notify
 def notify(message):
-    os.system('notify-send "{}" "{}"'.format("BookerDB", message))
+    #os.system('notify-send "{}" "{}"'.format("BookerDB", message))
+
+    rootdir = os.path.dirname(os.path.realpath(__file__))
+    os.system('notify-send -i "{}" "{}" "{}"'.format(rootdir + "/logo/logo.png", "BookerDB", message))
 
 
 # focus next widget
