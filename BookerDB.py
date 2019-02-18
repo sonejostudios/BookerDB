@@ -1589,7 +1589,7 @@ def generate_pdf(date, city, venue, artist, street, nr, zip, country, contact, p
 
 
     # logo.
-    logo = "logo/logo.png"
+    logo = "logo/logo_pdf.png"
     c.drawImage(logo, 240, 670+pdf_ypos, width=100, height=100)
 
 
